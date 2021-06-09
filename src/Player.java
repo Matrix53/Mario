@@ -3,6 +3,6 @@
  * @author Matrix53
  * @version 1.0
  */
-public class Player {
+public class Player{
 
 }

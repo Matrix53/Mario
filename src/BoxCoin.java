@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+
 class BoxCoin {
     private int x, y; // position
     private Image[] image = new Image[4];
