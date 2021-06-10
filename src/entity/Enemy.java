@@ -31,6 +31,10 @@ public class Enemy implements Collidable {
         this.floor=y;
     }
 
+    /**
+     * 方法描述
+     * @return 返回值是什么
+     */
     @Override
     public int getX() {
         return x;
@@ -40,6 +44,10 @@ public class Enemy implements Collidable {
         this.x = x;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getY() {
         return y;
