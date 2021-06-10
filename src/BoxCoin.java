@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 class BoxCoin {
     private int x, y; // position
     private Image[] image = new Image[4];
-    private int i = 0;
+    private int timer = 0;
     private int jumpHeight = 5;
     private int jumping = 15;
     private int falling = 0;
@@ -32,14 +32,14 @@ class BoxCoin {
     }
 
     public Image getImage() {
-        return image[i / 3];
+        return image[timer / 3];
     }
 
     public void animate() {
         /*
         * the animation of the coin from the box
         */
-        if (++i >= 12) i -= 12;
+        if (++timer >= 12) timer -= 12;
 
         // one jump of the coin
         if (jumping > 0) {
