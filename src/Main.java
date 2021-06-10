@@ -1,3 +1,7 @@
+import entity.Enemy;
+import entity.Pipe;
+import entity.Player;
+import entity.Wall;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;

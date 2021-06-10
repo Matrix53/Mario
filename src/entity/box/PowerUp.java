@@ -1,6 +1,9 @@
+package entity.box;
+
+import entity.Collidable;
 import javafx.scene.image.Image;
 
-public class PowerUp implements Collidable{
+public class PowerUp implements Collidable {
     private int x, y;
     private int moveLength = 2;
     private Image image = new Image("images/powerUp/powerUp.png");

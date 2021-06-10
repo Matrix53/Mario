@@ -1,6 +1,9 @@
+package entity;
+
+import entity.Collidable;
 import javafx.scene.image.Image;
 
-public class Pipe implements Collidable{
+public class Pipe implements Collidable {
     private int x;
     private int y;
     private Image image;

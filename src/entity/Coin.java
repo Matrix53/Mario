@@ -1,6 +1,9 @@
+package entity;
+
+import entity.Collidable;
 import javafx.scene.image.Image;
 
-public class Coin implements Collidable{
+public class Coin implements Collidable {
     private int x, y;
     private Image[] image = new Image[3];
     private int timer;
@@ -16,12 +19,12 @@ public class Coin implements Collidable{
 
     @Override
     public int getHeight() {
-        return (int)image[0].getHeight();
+        return (int) image[0].getHeight();
     }
 
     @Override
     public int getWidth() {
-        return (int)image[0].getWidth();
+        return (int) image[0].getWidth();
     }
 
     @Override
@@ -33,13 +36,14 @@ public class Coin implements Collidable{
     public int getY() {
         return y;
     }
+
     void animate() {
         if (++timer >= 50)
             timer -= 50;
     }
 
-    Image getImage(){
-        if(timer < 28)
+    Image getImage() {
+        if (timer < 28)
             return image[0];
         else if (timer < 37)
             return image[1];

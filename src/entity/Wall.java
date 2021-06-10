@@ -1,3 +1,6 @@
+package entity;
+
+import entity.Collidable;
 import javafx.scene.image.Image;
 
 /**
@@ -5,7 +8,7 @@ import javafx.scene.image.Image;
  * @author Matrix53
  * @version 1.0
  */
-public class Wall implements Collidable{
+public class Wall implements Collidable {
     private int x;
     private int y;
     private Image image;

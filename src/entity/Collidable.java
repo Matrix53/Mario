@@ -1,3 +1,5 @@
+package entity;
+
 import java.util.Collection;
 
 public interface Collidable {

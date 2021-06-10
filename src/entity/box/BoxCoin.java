@@ -1,3 +1,5 @@
+package entity.box;
+
 import javafx.scene.image.Image;
 
 class BoxCoin {
@@ -37,7 +39,7 @@ class BoxCoin {
 
     public void animate() {
         /*
-        * the animation of the coin from the box
+        * the animation of the coin from the entity.box
         */
         if (++timer >= 12) timer -= 12;
 

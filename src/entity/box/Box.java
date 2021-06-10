@@ -1,19 +1,24 @@
+package entity.box;
+
+import entity.Collidable;
 import javafx.scene.image.Image;
 
-public class Box implements Collidable{
+
+public class Box implements Collidable {
     private int x, y; // position
-    private Image[] image = new Image[3]; // store the animation of box;
-    private Image usedImage = new Image("images/box/box3.png");
+    private Image[] image = new Image[3]; // store the animation of entity.box;
+    private Image usedImage = new Image("images/entity.box/box3.png");
     private boolean isOpened = false;
-    private int i = 0; // timer
-    private double coinProb = 0.9;
+    private int timer = 0; // timer
+
+    private PropType type;
     
 
     public Box(int x, int y) {
         this.x = x;
         this.y = y;
         for (int i = 0; i < 3; i++)
-            image[i] = new Image("images/box/box" + i + ".png");
+            image[i] = new Image("images/entity.box/entity.box" + i + ".png");
         
     }
 
@@ -38,23 +43,26 @@ public class Box implements Collidable{
     }
 
     public Image getImage() {
-        //  image of the box
-        return this.isOpened ? usedImage : image[i / 15];
+        //  image of the entity.box
+        return this.isOpened ? usedImage : image[timer / 15];
     }
 
     public boolean isOpened() {
+        /*
+         * check whether the entity.box has been opened
+         */
         return isOpened;
     }
 
     public void setOpen() {
-        // set the box opened
+        // set the entity.box opened
         this.isOpened = true;
     }
 
     public void animate() {
         // simulate the time
-        if (++i >= 45)
-            i -= 45;
+        if (++timer >= 45)
+            timer -= 45;
     }
 
 }
