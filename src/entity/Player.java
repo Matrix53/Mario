@@ -124,11 +124,51 @@ public class Player implements Collidable {
         }
     }
 
-    public void hitEnemy(){
-
+    public void hitEnemy(Enemy enemy){
+        if(isToDown){
+            enemy.remove();
+            isToDown=false;
+            isToUp=true;
+        }else{
+            if(level==0){
+                image[0]=new Image("images/player/marioDead.png");
+                moveLength=0;
+                floor=550;
+                isToUp=true;
+                isDead=true;
+                animateTimer=0;
+            }else{
+                level--;
+                if(enemy.isToLeft()){
+                    enemy.setToLeft(false);
+                }else{
+                    enemy.setToLeft(true);
+                }
+                for(int i=0;i<5;++i){
+                    image[i]=new Image("images/player/marioRight"+i+"Lvl"+level+".png");
+                    image[i+5]=new Image("images/player/marioLeft"+i+"Lvl"+level+".png");
+                }
+            }
+        }
     }
 
     public void hitBox(){
+
+    }
+
+    public void hitPowerUp(){
+
+    }
+
+    public void hitCoin(){
+
+    }
+
+    public void hitPipe(){
+
+    }
+
+    public void hitWall(){
 
     }
 }
