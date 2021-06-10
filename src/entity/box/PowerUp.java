@@ -10,8 +10,9 @@ public class PowerUp implements Collidable {
     private int jumpHeight = 8;
     private boolean goLeft;
     private boolean isFalling;
+    private boolean isVisible = true;
 
-    public PowerUp(int x, int y){
+    public PowerUp(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -30,31 +31,36 @@ public class PowerUp implements Collidable {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
     }
-
-    public void setY(int y) {
-        this.y = y;
+    public boolean getIsVisible(){
+        return isVisible;
     }
 
-    Image getImage() {
+    public Image getImage() {
         return image;
     }
 
-    boolean getFalling(){
+    public boolean getFalling() {
         return isFalling;
     }
-    void setFalling(boolean falling) {
+
+    public void setFalling(boolean falling) {
         this.isFalling = falling;
     }
 
     private void changeMovingSite() {
+        /*
+         * change the direction
+         */
         goLeft = !goLeft;
     }
-    
+
+    public void vanish(){
+        isVisible = false;
+        y = -50;
+    }
+
+
 }
