@@ -61,13 +61,33 @@ public class Player implements Collidable {
         return x;
     }
 
+    public void setX(int x){
+        this.x=x;
+    }
+
     @Override
     public int getY() {
         return y;
     }
 
+    public void setFloor(int floor){
+        this.floor=floor;
+    }
+
+    public boolean isToDown(){
+        return isToDown;
+    }
+
+    public int getMoveLength(){
+        return moveLength;
+    }
+
     public Image getImage(){
         return isToRight? image[animateTimer/10]:image[animateTimer/10+5];
+    }
+
+    public boolean isDead(){
+        return isDead;
     }
 
     private void updateLevel(){

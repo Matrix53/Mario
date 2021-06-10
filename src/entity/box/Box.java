@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
  * 一个可以开出道具的盒子
  */
 public class Box implements Collidable {
-    private final int x;
-    private final int y; // position
+    private int x;
+    private int y; // position
     private final Image[] image = new Image[3]; // store the animation of entity.box;
     private Image usedImage = new Image("images/entity.box/box3.png");
     private boolean isOpened = false;
@@ -28,7 +28,6 @@ public class Box implements Collidable {
         for (int i = 0; i < 3; i++)
             image[i] = new Image("images/entity.box/entity.box" + i + ".png");
         propType = PropType.getRandomType();
-
     }
 
     /**
@@ -56,6 +55,10 @@ public class Box implements Collidable {
     public int getX() {
         // get the x position
         return x;
+    }
+
+    public void setX(int x){
+        this.x=x;
     }
 
     /**
@@ -107,7 +110,7 @@ public class Box implements Collidable {
         // simulate the time
         if (++timer >= 45)
             timer -= 45;
-        if (powerUp != null && !powerUp.getIsVisible()) {
+        if (powerUp != null && !powerUp.isVisible()) {
             powerUp = null;
         }
         if (coin != null && !coin.getIsVisible()) {
@@ -128,7 +131,6 @@ public class Box implements Collidable {
         } else {
             powerUp = new PowerUp(x, y - (int) image[0].getHeight());
         }
-
         isOpened = true;
     }
 }
