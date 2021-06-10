@@ -19,14 +19,14 @@ public class Enemy implements Collidable {
     private int floor;
 
     public Enemy() {
+        this.image=new Image[2];
+        image[0]=new Image("images/enemy/enemy1.png");
+        image[1]=new Image("images/enemy/enemy2.png");
         this.x=800;
         this.y=(int)(550-85-image[0].getHeight());
         this.isToLeft=true;
         this.removeTimer=0;
         this.moveLength=2;
-        this.image=new Image[2];
-        image[0]=new Image("images/enemy/enemy1.png");
-        image[1]=new Image("images/enemy/enemy2.png");
         this.animateTimer=0;
         this.floor=y;
     }

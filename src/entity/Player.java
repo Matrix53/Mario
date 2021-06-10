@@ -1,5 +1,6 @@
 package entity;
 
+import entity.box.Box;
 import entity.box.PowerUp;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -23,6 +24,7 @@ public class Player implements Collidable {
     private Image[] image;
     private int animateTimer;
     private int jumpTimer;
+    private boolean isWin;
     private boolean isDead;
     private int level;
 
@@ -40,6 +42,7 @@ public class Player implements Collidable {
         this.jumpTimer=0;
         this.moveLength=5;
         this.jumpHeight=5;
+        this.isWin=false;
         this.isDead=false;
         this.isToDown=false;
         this.isToUp=false;
@@ -70,6 +73,10 @@ public class Player implements Collidable {
         return y;
     }
 
+    public void setY(int y){
+        this.y=y;
+    }
+
     public void setFloor(int floor){
         this.floor=floor;
     }
@@ -88,6 +95,14 @@ public class Player implements Collidable {
 
     public boolean isDead(){
         return isDead;
+    }
+
+    public boolean isWin() {
+        return isWin;
+    }
+
+    public void setWin(boolean win) {
+        isWin = win;
     }
 
     private void updateLevel(){
@@ -173,8 +188,34 @@ public class Player implements Collidable {
         }
     }
 
-    public void hitBox(){
-
+    public void hitBox(Box box){
+        if(Math.abs(y+getHeight()- box.getY())<=5){
+            floor= box.getY()-getHeight();
+            y=floor;
+        }else if(y<box.getY()+ box.getHeight()
+                && x< box.getX()){
+            x-=moveLength;
+        }else if(y<box.getY()+ box.getHeight()
+                && x> box.getX()){
+            x+=moveLength;
+        }else{
+            if(Math.abs(y-box.getY()- box.getHeight())<=10
+                    && isToUp){
+                box.open();
+                isToUp=false;
+                isToDown=true;
+            }else if(x<=box.getX()){
+                x-=moveLength;
+            }else{
+                x+=moveLength;
+            }
+        }
+        if(Math.abs(y-floor)<=5
+                && !isToUp
+                && !isToDown){
+            floor=550-85-getHeight();
+            isToDown=true;
+        }
     }
 
     public void hitPowerUp(PowerUp powerUp){
@@ -191,11 +232,51 @@ public class Player implements Collidable {
         coin.vanish();
     }
 
-    public void hitPipe(){
-
+    public void hitPipe(Pipe pipe){
+        if(Math.abs(y+getHeight()- pipe.getY())<=10){
+            floor= pipe.getY()-getHeight();
+            y=floor;
+        }else if(x<pipe.getX()){
+            x-=moveLength;
+        }else{
+            x+=moveLength;
+        }
+        if(Math.abs(y-floor)<=5
+                && !isToUp
+                && !isToDown){
+            floor=550-85-getHeight();
+            isToDown=true;
+        }
     }
 
-    public void hitWall(){
-
+    public void hitWall(Wall wall){
+        if(Math.abs(y+getHeight()- wall.getY())<=5){
+            floor= wall.getY()-getHeight();
+            y=floor;
+        }else if(y<wall.getY()+ wall.getHeight()
+                && x< wall.getX()){
+            x-=moveLength;
+        }else if(y<wall.getY()+ wall.getHeight()
+                && x> wall.getX()){
+            x+=moveLength;
+        }else{
+            if(isToUp){
+                isToUp=false;
+                isToDown=true;
+                if(level>0){
+                    wall.setX(-50);
+                }
+            }else if(x<=wall.getX()){
+                x-=moveLength;
+            }else{
+                x+=moveLength;
+            }
+        }
+        if(Math.abs(y-floor)<=5
+                && !isToUp
+                && !isToDown){
+            floor=550-85-getHeight();
+            isToDown=true;
+        }
     }
 }

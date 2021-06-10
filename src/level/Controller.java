@@ -16,6 +16,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
@@ -30,15 +31,68 @@ public class Controller {
     private final LinkedList<Pipe> pipes=new LinkedList<>();
     private final LinkedList<Box> boxes=new LinkedList<>();
     private final LinkedList<Coin> coins=new LinkedList<>();
+    private final Flag flag=new Flag(-50,0);
     private final Player player=new Player();
     private final Random random=new Random();
     private final GraphicsContext gc= canvas.getGraphicsContext2D();
     private final Image background=new Image("images/background/background.png");
-    private final Media normal=new Media("sounds/default.mp3");
-    private final Media die=new Media("sounds/die.mp3");
+    private final Media normal=new Media(new File("assets/sounds/default.mp3").toURI().toString());
+    private final Media die=new Media(new File("assets/sounds/die.mp3").toURI().toString());
     private final MediaPlayer normalPlayer=new MediaPlayer(normal);
     private final MediaPlayer diePlayer=new MediaPlayer(die);
     private final AnimationTimer timer;
+
+    public void clearScreen(){
+        boxes.clear();
+        enemies.clear();
+        walls.clear();
+        pipes.clear();
+        coins.clear();
+    }
+
+    public void addEnemy(int x,int y){
+        Enemy enemy=new Enemy();
+        enemy.setX(x);
+        enemy.setY(y);
+        enemies.add(enemy);
+    }
+
+    public void addBox(int x,int y){
+        Box box=new Box(x,y);
+        boxes.add(box);
+    }
+
+    public void addCoin(int x,int y){
+        Coin coin=new Coin(x,y);
+        coins.add(coin);
+    }
+
+    public void addBigPipe(int x){
+        Image image=new Image("images/pipe/pipeBig.png");
+        Pipe pipe=new Pipe(x,image);
+        pipes.add(pipe);
+    }
+
+    public void addSmallPipe(int x){
+        Image image=new Image("images/pipe/pipeSmall.png");
+        Pipe pipe=new Pipe(x,image);
+        pipes.add(pipe);
+    }
+
+    public void addWall(int x,int y){
+        Wall wall=new Wall(x,y);
+        walls.add(wall);
+    }
+
+    public void setFlagPos(int x,int y){
+        flag.setX(x);
+        flag.setY(y);
+    }
+
+    public void setPlayerPos(int x,int y){
+        player.setX(x);
+        player.setY(y);
+    }
 
     private Controller(){
         // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
@@ -113,7 +167,7 @@ public class Controller {
                 // 播放跳跃音乐
                 case UP -> {
                     if(!player.isToDown()){
-                        Media jump=new Media("sounds/jump.mp3");
+                        Media jump=new Media(new File("assets/sounds/jump.mp3").toURI().toString());
                         MediaPlayer jumpPlayer=new MediaPlayer(jump);
                         jumpPlayer.setStartTime(Duration.millis(7));
                         jumpPlayer.play();
@@ -141,7 +195,9 @@ public class Controller {
                 // 处理跳跃动画
                 player.jump();
                 // 处理核心碰撞和动画
-                if(player.isDead()){
+                if(player.isWin()){
+
+                } else if(player.isDead()){
                     normalPlayer.setMute(true);
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
@@ -171,8 +227,43 @@ public class Controller {
                         });
                     }
                     // 处理管道的碰撞
+                    pipes.forEach(pipe -> {
+                        if(player.judgeCollision(pipe)){
+                            player.hitPipe(pipe);
+                        }
+                    });
                     // 处理盒子的碰撞
+                    boxes.forEach(box -> {
+                        box.animate();
+                        if(player.judgeCollision(box)){
+                            player.hitBox(box);
+                        }
+                        if (box.getCoin() != null) {
+                            box.getCoin().animate();
+                        } else if (box.getPowerUp() != null) {
+                            PowerUp powerUp = box.getPowerUp();
+                            if (!powerUp.judgeCollision(box)
+                                    && !powerUp.getFalling()
+                                    && box.getY() > powerUp.getY()) {
+                                powerUp.setFalling(true);
+                            }
+                            powerUp.move();
+                            pipes.forEach(pipe -> {
+                                if(powerUp.judgeCollision(pipe)){
+                                    powerUp.changeDirection();
+                                }
+                            });
+                            if(player.judgeCollision(powerUp)){
+                                player.hitPowerUp(powerUp);
+                            }
+                        }
+                    });
                     // 处理墙壁的碰撞
+                    walls.forEach(wall -> {
+                        if(player.judgeCollision(wall)){
+                            player.hitWall(wall);
+                        }
+                    });
                     // 处理硬币的碰撞
                     coins.forEach(coin -> {
                         if(player.judgeCollision(coin)){
@@ -197,9 +288,16 @@ public class Controller {
                     gc.drawImage(background,0,0);
                     coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(),coin.getY()));
                     pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
-                    walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY());
+                    walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
                     boxes.forEach(box -> {
-                        
+                        gc.drawImage(box.getImage(), box.getX(), box.getY());
+                        if(box.getCoin()!=null){
+                            BoxCoin coin= box.getCoin();
+                            gc.drawImage(coin.getImage(),coin.getX(), coin.getY());
+                        }else if(box.getPowerUp()!=null){
+                            PowerUp powerUp=box.getPowerUp();
+                            gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
+                        }
                     });
                     enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
                     gc.drawImage(player.getImage(), player.getX(), player.getY());

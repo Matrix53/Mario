@@ -51,15 +51,33 @@ public class PowerUp implements Collidable {
         this.isFalling = falling;
     }
 
-    private void changeMovingSite() {
-        /*
-         * change the direction
-         */
+    public void changeDirection() {
         goLeft = !goLeft;
     }
 
     public void vanish(){
         isVisible = false;
         y = -50;
+    }
+
+    public void move() {
+        if(goLeft){
+            if(x>0){
+                x-=moveLength;
+            }else{
+                goLeft=false;
+            }
+        }else if(x<800-getWidth()){
+            x += moveLength;
+        }else{
+            goLeft=true;
+        }
+        if(isFalling){
+            y+=jumpHeight;
+            if(Math.abs(550-85-getHeight()-y)<=10){
+                isFalling=false;
+                y=550-85-getHeight();
+            }
+        }
     }
 }

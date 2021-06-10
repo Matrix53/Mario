@@ -1,6 +1,6 @@
 package level;
 
-public class Level1 {
+public class Level2 {
     public static void start(){
 
     }

@@ -9,9 +9,9 @@ import javafx.scene.image.Image;
 public class Box implements Collidable {
     private int x;
     private int y; // position
-    private final Image[] image = new Image[3]; // store the animation of entity.box;
-    private Image usedImage = new Image("images/entity.box/box3.png");
-    private boolean isOpened = false;
+    private final Image[] image; // store the animation of entity.box;
+    private Image usedImage;
+    private boolean isOpened;
     private int timer = 0; // timer
     private PropType propType;
     private BoxCoin coin;
@@ -25,8 +25,12 @@ public class Box implements Collidable {
     public Box(int x, int y) {
         this.x = x;
         this.y = y;
-        for (int i = 0; i < 3; i++)
-            image[i] = new Image("images/entity.box/entity.box" + i + ".png");
+        this.image= new Image[3];
+        for (int i = 0; i < 3; i++){
+            image[i] = new Image("images/box/box" + i + ".png");
+        }
+        this.usedImage= new Image("images/box/box3.png");
+        this.isOpened=false;
         propType = PropType.getRandomType();
     }
 
