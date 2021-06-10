@@ -28,6 +28,7 @@ public class Enemy implements Collidable{
         this.floor=y;
     }
 
+    @Override
     public double getX() {
         return x;
     }
@@ -36,6 +37,7 @@ public class Enemy implements Collidable{
         this.x = x;
     }
 
+    @Override
     public double getY() {
         return y;
     }
@@ -64,10 +66,12 @@ public class Enemy implements Collidable{
         return animateTimer<20? image[0]:image[1];
     }
 
+    @Override
     public double getHeight(){
         return getImage().getHeight();
     }
 
+    @Override
     public double getWidth(){
         return getImage().getWidth();
     }
