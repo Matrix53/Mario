@@ -2,6 +2,8 @@ package level;
 
 import entity.*;
 import entity.box.Box;
+import entity.box.PowerUp;
+import entity.box.BoxCoin;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -147,7 +149,60 @@ public class Controller {
                         Platform.exit();
                     }
                 }else{
-
+                    // 处理用户输入
+                    player.move(input);
+                    // 处理敌人的碰撞
+                    for(int i=0;i<enemies.size();++i){
+                        Enemy enemy=enemies.get(i);
+                        enemy.move();
+                        if(player.judgeCollision(enemy)){
+                            player.hitEnemy(enemy);
+                        }
+                        for(int j=i+1;j< enemies.size();++j){
+                            if(enemy.judgeCollision(enemies.get(j))){
+                                enemy.changeDirection();
+                                enemies.get(j).changeDirection();
+                            }
+                        }
+                        pipes.forEach(pipe -> {
+                            if(enemy.judgeCollision(pipe)){
+                                enemy.changeDirection();
+                            }
+                        });
+                    }
+                    // 处理管道的碰撞
+                    // 处理盒子的碰撞
+                    // 处理墙壁的碰撞
+                    // 处理硬币的碰撞
+                    coins.forEach(coin -> {
+                        if(player.judgeCollision(coin)){
+                            coin.vanish();
+                        }
+                        coin.animate();
+                    });
+                    // 移除失效的实体
+                    walls.removeIf(wall -> wall.getX()<0);
+                    coins.removeIf(coin -> coin.getX()<0);
+                    enemies.removeIf(enemy -> enemy.getX()<0);
+                    for(Box box:boxes){
+                        if(box.getCoin()!=null
+                                && box.getCoin().getX()<0){
+                            box.setCoin(null);
+                        }else if(box.getPowerUp()!=null
+                                && box.getPowerUp().getX()<0){
+                            box.setPowerUp(null);
+                        }
+                    }
+                    // 重新绘制屏幕
+                    gc.drawImage(background,0,0);
+                    coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(),coin.getY()));
+                    pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
+                    walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY());
+                    boxes.forEach(box -> {
+                        
+                    });
+                    enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
+                    gc.drawImage(player.getImage(), player.getX(), player.getY());
                 }
             }
         };

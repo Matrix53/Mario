@@ -37,4 +37,8 @@ public class Pipe implements Collidable {
     public int getHeight(){
         return (int)image.getHeight();
     }
+
+    public Image getImage(){
+        return image;
+    }
 }

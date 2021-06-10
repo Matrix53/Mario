@@ -7,8 +7,9 @@ import javafx.scene.image.Image;
  * @author luxia
  * @version 1.0
  */
-class BoxCoin {
-    private int x, y; // position
+public class BoxCoin {
+    private int x;
+    private int y; // position
     private Image[] image = new Image[4];
     private int timer = 0;
     private int jumpHeight = 5;
@@ -48,7 +49,7 @@ class BoxCoin {
      * 返回当前实体的可见性
      * @return 实体是否可见
      */
-    public boolean getIsVisible() {
+    public boolean isVisible() {
         return isVisible;
     }
 

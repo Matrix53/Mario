@@ -87,6 +87,22 @@ public class Box implements Collidable {
         return this.isOpened ? usedImage : image[timer / 15];
     }
 
+    public BoxCoin getCoin(){
+        return coin;
+    }
+
+    public void setCoin(BoxCoin coin){
+        this.coin=coin;
+    }
+
+    public void setPowerUp(PowerUp powerUp){
+        this.powerUp=powerUp;
+    }
+
+    public PowerUp getPowerUp(){
+        return powerUp;
+    }
+
     /**
      * 检测盒子是否已经被打开过了（道具莫得了）
      * @return 盒子是否已经被打开过了
@@ -113,7 +129,7 @@ public class Box implements Collidable {
         if (powerUp != null && !powerUp.isVisible()) {
             powerUp = null;
         }
-        if (coin != null && !coin.getIsVisible()) {
+        if (coin != null && !coin.isVisible()) {
             coin = null;
         }
     }

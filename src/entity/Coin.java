@@ -73,7 +73,7 @@ public class Coin implements Collidable {
     /**
      * 硬币的动画
      */
-    void animate() {
+    public void animate() {
         if (++timer >= 50)
             timer -= 50;
     }
