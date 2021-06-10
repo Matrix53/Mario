@@ -3,11 +3,20 @@ package entity;
 import entity.Collidable;
 import javafx.scene.image.Image;
 
+/**
+ * 需要自己收集的硬币
+ * @author luxia
+ */
 public class Coin implements Collidable {
     private int x, y;
     private Image[] image = new Image[3];
     private int timer;
 
+    /**
+     * 生成硬币的构造方法
+     * @param x x坐标
+     * @param y y坐标
+     */
     public Coin(int x, int y) {
         this.x = x;
         this.y = y;
@@ -17,31 +26,54 @@ public class Coin implements Collidable {
 
     }
 
+    /**
+     * 得到硬币的尺寸高度
+     * @return 硬币尺寸中的高度
+     */
     @Override
     public int getHeight() {
         return (int) image[0].getHeight();
     }
 
+    /**
+     * 得到硬币的宽度
+     * @return 硬币的宽度
+     */
     @Override
     public int getWidth() {
         return (int) image[0].getWidth();
     }
 
+    /**
+     * 得到硬币的x坐标
+     * @return 硬币的x坐标
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * 得到硬币的y坐标
+     * @return 硬币的y坐标
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * 硬币的动画
+     */
     void animate() {
         if (++timer >= 50)
             timer -= 50;
     }
 
+    /**
+     * 得到当前硬币的图片
+     * @return 当前硬币的图片
+     */
     Image getImage() {
         if (timer < 28)
             return image[0];
