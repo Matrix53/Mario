@@ -124,9 +124,9 @@ public class Box implements Collidable {
         if(isOpened)
             return;
         if (propType == PropType.BOXCOIN) {
-            coin = new BoxCoin(x + (int) image[0].getWidth() / 4, y - (int) image[0].getHeight())
+            coin = new BoxCoin(x + (int) image[0].getWidth() / 4, y - (int) image[0].getHeight());
         } else {
-            powerUp = new PowerUp(x, y - (int) image[0].getHeight())
+            powerUp = new PowerUp(x, y - (int) image[0].getHeight());
         }
 
         isOpened = true;
