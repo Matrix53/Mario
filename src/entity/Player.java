@@ -1,5 +1,6 @@
 package entity;
 
+import entity.box.PowerUp;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
@@ -67,6 +68,13 @@ public class Player implements Collidable {
 
     public Image getImage(){
         return isToRight? image[animateTimer/10]:image[animateTimer/10+5];
+    }
+
+    private void updateLevel(){
+        for(int i=0;i<5;++i){
+            image[i]=new Image("images/player/marioRight"+i+"Lvl"+level+".png");
+            image[i+5]=new Image("images/player/marioLeft"+i+"Lvl"+level+".png");
+        }
     }
 
     public void move(HashSet<KeyCode> input){
@@ -139,15 +147,8 @@ public class Player implements Collidable {
                 animateTimer=0;
             }else{
                 level--;
-                if(enemy.isToLeft()){
-                    enemy.setToLeft(false);
-                }else{
-                    enemy.setToLeft(true);
-                }
-                for(int i=0;i<5;++i){
-                    image[i]=new Image("images/player/marioRight"+i+"Lvl"+level+".png");
-                    image[i+5]=new Image("images/player/marioLeft"+i+"Lvl"+level+".png");
-                }
+                enemy.changeDirection();
+                updateLevel();
             }
         }
     }
@@ -156,12 +157,18 @@ public class Player implements Collidable {
 
     }
 
-    public void hitPowerUp(){
-
+    public void hitPowerUp(PowerUp powerUp){
+        powerUp.vanish();
+        if(level<2){
+            level++;
+            updateLevel();
+            floor=550-85-getHeight();
+            if(y>floor) y=floor;
+        }
     }
 
-    public void hitCoin(){
-
+    public void hitCoin(Coin coin){
+        coin.vanish();
     }
 
     public void hitPipe(){

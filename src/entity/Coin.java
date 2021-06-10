@@ -1,6 +1,5 @@
 package entity;
 
-import entity.Collidable;
 import javafx.scene.image.Image;
 
 /**
@@ -74,7 +73,7 @@ public class Coin implements Collidable {
      * 得到当前硬币的图片
      * @return 当前硬币的图片
      */
-    Image getImage() {
+    public Image getImage() {
         if (timer < 28)
             return image[0];
         else if (timer < 37)
@@ -82,4 +81,9 @@ public class Coin implements Collidable {
         else
             return image[2];
     }
+
+    public void vanish(){
+        x=-50;
+    }
+
 }

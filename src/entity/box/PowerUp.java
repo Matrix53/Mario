@@ -34,7 +34,8 @@ public class PowerUp implements Collidable {
     public int getY() {
         return y;
     }
-    public boolean getIsVisible(){
+
+    public boolean isVisible() {
         return isVisible;
     }
 
@@ -61,6 +62,4 @@ public class PowerUp implements Collidable {
         isVisible = false;
         y = -50;
     }
-
-
 }

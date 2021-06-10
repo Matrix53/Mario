@@ -120,7 +120,7 @@ public class Box implements Collidable {
      * 如果盒子还没开过，会生成盒子中的物体，并且将盒子设置为已经打开。
      * 如果盒子开过了，则什么都不干。
      */
-    public void hitBox() {
+    public void open() {
         if(isOpened)
             return;
         if (propType == PropType.BOXCOIN) {
