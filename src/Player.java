@@ -3,6 +3,25 @@
  * @author Matrix53
  * @version 1.0
  */
-public class Player{
+public class Player implements Collidable{
 
+    @Override
+    public double getHeight() {
+        return 0;
+    }
+
+    @Override
+    public double getWidth() {
+        return 0;
+    }
+
+    @Override
+    public double getX() {
+        return 0;
+    }
+
+    @Override
+    public double getY() {
+        return 0;
+    }
 }

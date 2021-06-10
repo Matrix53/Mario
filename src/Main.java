@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * 继承JavaFX的Application类作为游戏的主类，
@@ -36,6 +37,9 @@ public class Main extends Application{
         HashSet<KeyCode> input=new HashSet<>();
         LinkedList<Enemy> enemies=new LinkedList<>();
         LinkedList<Wall> walls=new LinkedList<>();
+        LinkedList<Pipe> pipes=new LinkedList<>();
+        Player player=new Player();
+        Random random=new Random();
 
         // 记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event ->{
@@ -49,9 +53,18 @@ public class Main extends Application{
             input.remove(keyCode);
 
             switch(keyCode){
-                case E ->{
+                // 添加敌人
+                case E -> {
                     Enemy enemy=new Enemy();
                     enemies.add(enemy);
+                }
+                // 添加墙壁
+                case W -> {
+                    Wall wall=new Wall(random.nextInt(800),250);
+                    while(wall.judgeCollision(walls)){
+
+                    }
+                    walls.add(wall);
                 }
             }
         });

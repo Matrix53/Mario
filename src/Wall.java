@@ -21,6 +21,10 @@ public class Wall implements Collidable{
         return x;
     }
 
+    public void setX(int x){
+        this.x=x;
+    }
+
     @Override
     public double getY(){
         return y;
