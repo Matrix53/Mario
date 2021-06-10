@@ -29,7 +29,7 @@ public class Enemy implements Collidable{
     }
 
     @Override
-    public double getX() {
+    public int getX() {
         return x;
     }
 
@@ -38,7 +38,7 @@ public class Enemy implements Collidable{
     }
 
     @Override
-    public double getY() {
+    public int getY() {
         return y;
     }
 
@@ -67,13 +67,13 @@ public class Enemy implements Collidable{
     }
 
     @Override
-    public double getHeight(){
-        return getImage().getHeight();
+    public int getHeight(){
+        return (int)getImage().getHeight();
     }
 
     @Override
-    public double getWidth(){
-        return getImage().getWidth();
+    public int getWidth(){
+        return (int)getImage().getWidth();
     }
 
     public int getFloor() {

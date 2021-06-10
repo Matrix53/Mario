@@ -1,10 +1,10 @@
 import java.util.Collection;
 
 public interface Collidable {
-    public double getHeight();
-    public double getWidth();
-    public double getX();
-    public double getY();
+    public int getHeight();
+    public int getWidth();
+    public int getX();
+    public int getY();
     default public boolean judgeCollision(Collidable object){
         return !(getX()+getWidth()<object.getX() ||
                 getX()> object.getX()+ object.getWidth() ||

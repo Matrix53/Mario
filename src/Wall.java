@@ -17,7 +17,7 @@ public class Wall implements Collidable{
     }
 
     @Override
-    public double getX(){
+    public int getX(){
         return x;
     }
 
@@ -26,18 +26,18 @@ public class Wall implements Collidable{
     }
 
     @Override
-    public double getY(){
+    public int getY(){
         return y;
     }
 
     @Override
-    public double getHeight(){
-        return image.getHeight();
+    public int getHeight(){
+        return (int)image.getHeight();
     }
 
     @Override
-    public double getWidth(){
-        return image.getWidth();
+    public int getWidth(){
+        return (int)image.getWidth();
     }
 
     public Image getImage(){

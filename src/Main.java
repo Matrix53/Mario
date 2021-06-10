@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
@@ -85,6 +86,9 @@ public class Main extends Application{
         GraphicsContext gc= canvas.getGraphicsContext2D();
         Image background=new Image("images/background/background.png");
         Media normal=new Media("sounds/default.mp3");
+        Media die=new Media("sounds/die.mp3");
+        MediaPlayer normalPlayer=new MediaPlayer(normal);
+        MediaPlayer diePlayer=new MediaPlayer(die);
 
         // 定义计时器进行计时，定时进行图形渲染
         AnimationTimer timer=new AnimationTimer() {

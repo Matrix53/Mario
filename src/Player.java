@@ -6,22 +6,22 @@
 public class Player implements Collidable{
 
     @Override
-    public double getHeight() {
+    public int getHeight() {
         return 0;
     }
 
     @Override
-    public double getWidth() {
+    public int getWidth() {
         return 0;
     }
 
     @Override
-    public double getX() {
+    public int getX() {
         return 0;
     }
 
     @Override
-    public double getY() {
+    public int getY() {
         return 0;
     }
 }
