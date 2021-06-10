@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -5,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
@@ -41,17 +43,16 @@ public class Main extends Application{
         Player player=new Player();
         Random random=new Random();
 
-        // 记录用户的输入，忽略短时间内的重复输入
+        // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event ->{
             KeyCode keyCode=event.getCode();
             input.add(keyCode);
         });
 
-        // 处理用户的输入
+        // 定义按键绑定，处理用户的输入
         scene.setOnKeyReleased(event ->{
             KeyCode keyCode=event.getCode();
             input.remove(keyCode);
-
             switch(keyCode){
                 // 添加敌人
                 case E -> {
@@ -62,13 +63,39 @@ public class Main extends Application{
                 case W -> {
                     Wall wall=new Wall(random.nextInt(800),250);
                     while(wall.judgeCollision(walls)){
-
+                        wall.setX(random.nextInt(800));
                     }
                     walls.add(wall);
+                }
+                // 添加管道
+                case O,P ->{
+                    String pipeName=(keyCode == KeyCode.O)? "pipeSmall.png":"pipeBig.png";
+                    Image pipeImage=new Image("images/pipe/"+pipeName);
+                    Pipe pipe=new Pipe(random.nextInt(760),pipeImage);
+                    while(pipe.judgeCollision(pipes)
+                            || pipe.judgeCollision(enemies)){
+                        pipe.setX(random.nextInt(760));
+                    }
+                    pipes.add(pipe);
                 }
             }
         });
 
+        // 定义渲染游戏需要用到的图形操作类与声音操作类
+        GraphicsContext gc= canvas.getGraphicsContext2D();
+        Image background=new Image("images/background/background.png");
+        Media normal=new Media("sounds/default.mp3");
+
+        // 定义计时器进行计时，定时进行图形渲染
+        AnimationTimer timer=new AnimationTimer() {
+            @Override
+            public void handle(long time) {
+
+            }
+        };
+
+        // 初始化完成，开始展示屏幕
+        timer.start();
         stage.show();
     }
 
