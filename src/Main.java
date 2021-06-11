@@ -23,6 +23,7 @@ public class Main extends Application{
         Scene scene= controller.getScene();
         stage.setScene(scene);
         stage.setTitle("SuperMario");
+        stage.setResizable(false);
         Image icon=new Image("images/icon/marioIcon.png");
         stage.getIcons().add(icon);
         AnimationTimer timer=controller.getTimer();
