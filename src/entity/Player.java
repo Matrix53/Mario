@@ -21,14 +21,17 @@ public class Player implements Collidable {
     private boolean isToDown;
     private boolean isToRight;
     private int moveLength;
-    private int jumpHeight;
-    private Image[] image;
+    private final int jumpHeight;
+    private final Image[] image;
     private int animateTimer;
     private int jumpTimer;
     private boolean isWin;
     private boolean isDead;
     private int level;
 
+    /**
+     * 玩家的构造方法
+     */
     public Player() {
         this.level = 0;
         this.image = new Image[10];
@@ -50,62 +53,157 @@ public class Player implements Collidable {
         this.isToRight = false;
     }
 
+    /**
+     * 可以设置玩家位置的构造方法
+     *
+     * @param x 玩家的x坐标
+     * @param y 玩家的y坐标
+     */
+    public Player(int x, int y) {
+        this.level = 0;
+        this.image = new Image[10];
+        for (int i = 0; i < 5; ++i) {
+            image[i] = new Image("images/player/marioRight" + i + "Lvl" + level + ".png");
+            image[i + 5] = new Image("images/player/marioLeft" + i + "Lvl" + level + ".png");
+        }
+        this.x = x;
+        this.floor = (int) (550 - 85 - image[0].getHeight());
+        this.y = y;
+        this.animateTimer = 0;
+        this.jumpTimer = 0;
+        this.moveLength = 5;
+        this.jumpHeight = 5;
+        this.isWin = false;
+        this.isDead = false;
+        this.isToDown = false;
+        this.isToUp = false;
+        this.isToRight = false;
+    }
+
+    /**
+     * 得到玩家的高度
+     *
+     * @return 玩家的高度
+     */
     @Override
     public int getHeight() {
         return (int) image[0].getHeight();
     }
 
+    /**
+     * 得到玩家的宽度
+     *
+     * @return 玩家的宽度
+     */
     @Override
     public int getWidth() {
         return (int) image[0].getWidth();
     }
 
+    /**
+     * 得到玩家的x坐标
+     *
+     * @return 玩家的x坐标
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * 设置玩家的x坐标
+     *
+     * @param x 玩家的目标x坐标
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * 得到玩家的y坐标
+     *
+     * @return 玩家的y坐标
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * 设置玩家的y坐标
+     *
+     * @param y 玩家的目标y坐标
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * 设置玩家所处的地面高度
+     *
+     * @param floor 玩家的地面高度
+     */
     public void setFloor(int floor) {
         this.floor = floor;
     }
 
+    /**
+     * 判断玩家是否正在下落
+     *
+     * @return 玩家是否在下落
+     */
     public boolean isToDown() {
         return isToDown;
     }
 
+    /**
+     * 得到玩家的移动速度
+     *
+     * @return 玩家单位时间内移动长度
+     */
     public int getMoveLength() {
         return moveLength;
     }
 
+    /**
+     * 得到玩家的图片
+     *
+     * @return 玩家的图
+     */
     public Image getImage() {
         return isToRight ? image[animateTimer / 10] : image[animateTimer / 10 + 5];
     }
 
+    /**
+     * 判断玩家是否已经死亡
+     *
+     * @return 玩家是否死亡
+     */
     public boolean isDead() {
         return isDead;
     }
 
+    /**
+     * 判断玩家是否胜利了
+     *
+     * @return 玩家是否胜利
+     */
     public boolean isWin() {
         return isWin;
     }
 
+    /**
+     * 设置玩家胜利状态
+     *
+     * @param win 玩家目标胜利状态
+     */
     public void setWin(boolean win) {
         isWin = win;
     }
 
+    /**
+     * 玩家升级
+     */
     private void updateLevel() {
         int oldHeight = getHeight();
         int oldFloor = floor;
@@ -118,6 +216,11 @@ public class Player implements Collidable {
         y = oldY + oldHeight - getHeight();
     }
 
+    /**
+     * 玩家的响应键盘的移动动画
+     *
+     * @param input 键盘输入
+     */
     public void move(HashSet<KeyCode> input) {
         animateTimer++;
         if (animateTimer == 50
@@ -155,6 +258,9 @@ public class Player implements Collidable {
         }
     }
 
+    /**
+     * 玩家跳
+     */
     public void jump() {
         for (int i = 0; i < 2; ++i) {
             if (isToUp) {
@@ -175,30 +281,38 @@ public class Player implements Collidable {
         }
     }
 
-    public void hitFlag(){
-        isWin=true;
-        isToDown=false;
-        isToUp=true;
-        moveLength=0;
-        animateTimer=0;
+    /**
+     * 玩家得到旗子
+     */
+    public void hitFlag() {
+        isWin = true;
+        isToDown = false;
+        isToUp = true;
+        moveLength = 0;
+        animateTimer = 0;
     }
 
-    public void hitEnemy(Enemy enemy){
-        if(enemy.isDead()){
+    /**
+     * 玩家撞上了敌人
+     *
+     * @param enemy 撞上的敌人对象
+     */
+    public void hitEnemy(Enemy enemy) {
+        if (enemy.isDead()) {
             return;
-        }else if(isToDown){
+        } else if (isToDown) {
             enemy.remove();
-            isToDown=false;
-            isToUp=true;
-        }else{
-            if(level==0){
-                image[0]=new Image("images/player/marioDead.png");
-                moveLength=0;
-                floor=550;
-                isToUp=true;
-                isDead=true;
-                animateTimer=0;
-            }else{
+            isToDown = false;
+            isToUp = true;
+        } else {
+            if (level == 0) {
+                image[0] = new Image("images/player/marioDead.png");
+                moveLength = 0;
+                floor = 550;
+                isToUp = true;
+                isDead = true;
+                animateTimer = 0;
+            } else {
                 level--;
                 enemy.changeDirection();
 
@@ -207,6 +321,11 @@ public class Player implements Collidable {
         }
     }
 
+    /**
+     * 开盒子
+     *
+     * @param box 目标盒子对象
+     */
     public void hitBox(Box box) {
         if (Math.abs(y + getHeight() - box.getY()) < 10) {
             floor = box.getY() - getHeight();
@@ -236,6 +355,11 @@ public class Player implements Collidable {
         }
     }
 
+    /**
+     * 撞上了大蘑菇的事件
+     *
+     * @param powerUp 蘑菇对象
+     */
     public void hitPowerUp(PowerUp powerUp) {
         powerUp.vanish();
         if (level < 2) {
@@ -246,10 +370,20 @@ public class Player implements Collidable {
         }
     }
 
+    /**
+     * 撞上硬币事件
+     *
+     * @param coin 硬币对象
+     */
     public void hitCoin(Coin coin) {
         coin.vanish();
     }
 
+    /**
+     * 玩家撞上管道事件
+     *
+     * @param pipe 管道对象
+     */
     public void hitPipe(Pipe pipe) {
         if (Math.abs(y + getHeight() - pipe.getY()) < 10
                 && isToDown) {
@@ -270,6 +404,11 @@ public class Player implements Collidable {
         }
     }
 
+    /**
+     * 玩家撞上墙的事件
+     *
+     * @param wall 墙的对象
+     */
     public void hitWall(Wall wall) {
         if (Math.abs(y + getHeight() - wall.getY()) < 10) {
             floor = wall.getY() - getHeight();

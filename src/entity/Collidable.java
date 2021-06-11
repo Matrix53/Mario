@@ -3,17 +3,22 @@ package entity;
 import java.util.Collection;
 
 public interface Collidable {
-    public int getHeight();
-    public int getWidth();
-    public int getX();
-    public int getY();
-    default public boolean judgeCollision(Collidable object){
-        return !(getX()+getWidth()<object.getX() ||
-                getX()> object.getX()+ object.getWidth() ||
-                getY()+getHeight()<object.getY() ||
-                getY()> object.getY()+object.getHeight());
+    int getHeight();
+
+    int getWidth();
+
+    int getX();
+
+    int getY();
+
+    default boolean judgeCollision(Collidable object) {
+        return !(getX() + getWidth() < object.getX() ||
+                getX() > object.getX() + object.getWidth() ||
+                getY() + getHeight() < object.getY() ||
+                getY() > object.getY() + object.getHeight());
     }
-    default public boolean judgeCollision(Collection<? extends Collidable> objects){
-        return objects.stream().anyMatch(object -> judgeCollision(object));
+
+    default boolean judgeCollision(Collection<? extends Collidable> objects) {
+        return objects.stream().anyMatch(this::judgeCollision);
     }
 }

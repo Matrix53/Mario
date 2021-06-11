@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 public class Coin implements Collidable {
     private int x;
     private int y;
-    private Image[] image = new Image[3];
+    private final Image[] image = new Image[3];
     private int timer;
 
     /**

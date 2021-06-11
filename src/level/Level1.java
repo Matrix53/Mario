@@ -1,7 +1,12 @@
 package level;
 
+import entity.box.PropType;
+
+/**
+ * first Level of the game
+ */
 public class Level1 {
-    private static Controller controller = Controller.getInstance();
+    private static final Controller controller = Controller.getInstance();
 
     private static int intro(int startPoint) {
         controller.addEnemy(startPoint, 0);
@@ -81,8 +86,6 @@ public class Level1 {
         for (int i = 0; i < 3; i++) {
             controller.addCoin(center + (i - 1) * boxHeight + 5, lower + boxHeight * 2);
         }
-//        controller.addBox(center + boxHeight * 2, lower + boxHeight * 2);
-//        controller.addBox(center - boxHeight * 2, lower + boxHeight * 2);
         controller.addWall(center - boxHeight, lower + boxHeight * 3);
         controller.addWall(center + boxHeight, lower + boxHeight * 3);
         controller.addCoin(center + 5, lower + boxHeight * 3);
