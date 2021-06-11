@@ -51,24 +51,26 @@ public class Controller {
         coins.clear();
     }
 
-    public void addEnemy(int x, int y) {
+    public void addEnemy(int x, int h) {
         Enemy enemy = new Enemy();
         enemy.setX(x);
-        enemy.setY(y);
+        enemy.setY(550-85-enemy.getHeight()-h);
         enemies.add(enemy);
     }
 
-    public void addBox(int x, int y) {
-        Box box = new Box(x, y);
+    public void addBox(int x, int h) {
+        Box box = new Box(x, 0);
+        box.setY(550-85-box.getHeight()-h);
         boxes.add(box);
     }
 
-    public void addCoin(int x, int y) {
-        Coin coin = new Coin(x, y);
+    public void addCoin(int x, int h) {
+        Coin coin = new Coin(x, 0);
+        coin.setY(550-85-coin.getHeight()-h);
         coins.add(coin);
     }
 
-    public void addBigPipe(int x) {
+    public void addBigPipe(int x){
         Image image = new Image("images/pipe/pipeBig.png");
         Pipe pipe = new Pipe(x, image);
         pipes.add(pipe);
@@ -80,19 +82,25 @@ public class Controller {
         pipes.add(pipe);
     }
 
-    public void addWall(int x, int y) {
-        Wall wall = new Wall(x, y);
+    public void addWall(int x, int h) {
+        Wall wall = new Wall(x, 0);
+        wall.setY(550-85-wall.getHeight()-h);
         walls.add(wall);
     }
 
-    public void setFlagPos(int x, int y) {
+    public void setFlagPos(int x, int h) {
         flag.setX(x);
-        flag.setY(y);
+        flag.setY(550-85- flag.getHeight()-h);
     }
 
-    public void setPlayerPos(int x, int y) {
+    public void setPlayerPos(int x, int h) {
         player.setX(x);
-        player.setY(y);
+        player.setY(550-85-player.getHeight()-h);
+    }
+
+    public void setTitle(){
+        title.setX(0);
+        title.setY(0);
     }
 
     private Controller() {
