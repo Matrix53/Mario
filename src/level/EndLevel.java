@@ -1,7 +1,7 @@
 package level;
 
-public class EndLevel {
-    public static void start(){
+public class EndLevel extends Level{
+    public void start(){
 
     }
 }

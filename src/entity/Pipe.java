@@ -27,6 +27,10 @@ public class Pipe implements Collidable {
         return y;
     }
 
+    public void setY(int y){
+        this.y=y;
+    }
+
     @Override
     public int getWidth(){
         return (int)image.getWidth();

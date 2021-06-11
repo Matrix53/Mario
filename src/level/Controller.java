@@ -1,5 +1,7 @@
 package level;
 
+import controller.EntityController;
+import controller.LevelController;
 import entity.*;
 import entity.box.Box;
 import entity.box.PowerUp;
@@ -19,38 +21,20 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Random;
 
 public class Controller {
-    private final Canvas canvas = new Canvas(800, 550);
-    private final Group root = new Group(canvas);
+    private final EntityController entityController=EntityController.getInstance();
+    private final LevelController levelController=LevelController.getInstance();
+    private final Group root = new Group(entityController.getCanvas());
     private final Scene scene = new Scene(root);
     private final HashSet<KeyCode> input = new HashSet<>();
-    private final LinkedList<Enemy> enemies = new LinkedList<>();
-    private final LinkedList<Wall> walls = new LinkedList<>();
-    private final LinkedList<Pipe> pipes = new LinkedList<>();
-    private final LinkedList<Box> boxes = new LinkedList<>();
-    private final LinkedList<Coin> coins = new LinkedList<>();
-    private final Flag flag = new Flag(-50, 0);
-    private final Player player = new Player();
-    private final Random random = new Random();
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
     private final Image background = new Image("images/background/background.png");
-    private final Title title = new Title(0, 0);
     private final Media normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
     private final Media die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
     private final MediaPlayer normalPlayer = new MediaPlayer(normal);
     private final MediaPlayer diePlayer = new MediaPlayer(die);
     private final AnimationTimer timer;
-
-    public void clearScreen() {
-        boxes.clear();
-        enemies.clear();
-        walls.clear();
-        pipes.clear();
-        coins.clear();
-    }
 
     public void endGame(){
         Stage stage=(Stage)scene.getWindow();
@@ -65,58 +49,6 @@ public class Controller {
         timer.start();
     }
 
-    public void addEnemy(int x, int h) {
-        Enemy enemy = new Enemy();
-        enemy.setX(x);
-        enemy.setY(550 - 85 - enemy.getHeight() - h);
-        enemies.add(enemy);
-    }
-
-    public void addBox(int x, int h) {
-        Box box = new Box(x, 0);
-        box.setY(550 - 85 - box.getHeight() - h);
-        boxes.add(box);
-    }
-
-    public void addCoin(int x, int h) {
-        Coin coin = new Coin(x, 0);
-        coin.setY(550 - 85 - coin.getHeight() - h);
-        coins.add(coin);
-    }
-
-    public void addBigPipe(int x) {
-        Image image = new Image("images/pipe/pipeBig.png");
-        Pipe pipe = new Pipe(x, image);
-        pipes.add(pipe);
-    }
-
-    public void addSmallPipe(int x) {
-        Image image = new Image("images/pipe/pipeSmall.png");
-        Pipe pipe = new Pipe(x, image);
-        pipes.add(pipe);
-    }
-
-    public void addWall(int x, int h) {
-        Wall wall = new Wall(x, 0);
-        wall.setY(550 - 85 - wall.getHeight() - h);
-        walls.add(wall);
-    }
-
-    public void setFlagPos(int x, int h) {
-        flag.setX(x);
-        flag.setY(550 - 85 - flag.getHeight() - h);
-    }
-
-    public void setPlayerPos(int x, int h) {
-        player.setX(x);
-        player.setY(550 - 85 - player.getHeight() - h);
-    }
-
-    public void setTitlePos(int x){
-        title.setX(x);
-        title.setY(0);
-    }
-
     private Controller() {
         // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event -> {
@@ -129,80 +61,22 @@ public class Controller {
             input.remove(keyCode);
             switch (keyCode) {
                 // 添加敌人
-                case E -> {
-                    Enemy enemy = new Enemy();
-                    enemies.add(enemy);
-                }
+                case E -> entityController.addEnemy();
                 // 添加盒子
-                case B -> {
-                    Box box = new Box(random.nextInt(800), 250);
-                    while (box.judgeCollision(boxes)
-                            || box.judgeCollision(walls)
-                            || box.judgeCollision(coins)) {
-                        box.setX(random.nextInt(800));
-                    }
-                    boxes.add(box);
-                }
+                case B -> entityController.addBox();
                 // 添加墙壁
-                case W -> {
-                    Wall wall = new Wall(random.nextInt(800), 250);
-                    while (wall.judgeCollision(walls)
-                            || wall.judgeCollision(boxes)
-                            || wall.judgeCollision(coins)) {
-                        wall.setX(random.nextInt(800));
-                    }
-                    walls.add(wall);
-                }
-                // 添加管道
-                case O, P -> {
-                    String pipeName = (keyCode == KeyCode.O) ? "pipeSmall.png" : "pipeBig.png";
-                    Image pipeImage = new Image("images/pipe/" + pipeName);
-                    Pipe pipe = new Pipe(random.nextInt(760), pipeImage);
-                    while (pipe.judgeCollision(pipes)
-                            || pipe.judgeCollision(enemies)
-                            || pipe.judgeCollision(coins)) {
-                        pipe.setX(random.nextInt(760));
-                    }
-                    pipes.add(pipe);
-                }
+                case W -> entityController.addWall();
+                // 添加小型管道
+                case O -> entityController.addSmallPipe();
+                // 添加大型管道
+                case P -> entityController.addBigPipe();
                 // 添加金币
-                case C -> {
-                    Coin coin = new Coin(random.nextInt(800), random.nextInt(550));
-                    while (coin.judgeCollision(boxes)
-                            || coin.judgeCollision(walls)
-                            || coin.judgeCollision(coins)
-                            || coin.judgeCollision(pipes)) {
-                        coin.setX(800 - coin.getWidth());
-                        coin.setY(550 - 85 - coin.getHeight());
-                    }
-                    coins.add(coin);
-                }
-                // 添加旗子
-                case F ->{
-                    flag.setY(550-85-flag.getHeight());
-                    flag.setX(random.nextInt(800-flag.getWidth()));
-                    while(flag.judgeCollision(enemies)
-                            || flag.judgeCollision(boxes)
-                            || flag.judgeCollision(walls)
-                            || flag.judgeCollision(pipes)
-                            || flag.judgeCollision(coins)
-                            || flag.judgeCollision(player)){
-                        flag.setX(random.nextInt(800-flag.getWidth()));
-                    }
-                }
+                case C -> entityController.addCoin();
                 // 清屏
-                case Z -> {
-                    boxes.clear();
-                    enemies.clear();
-                    walls.clear();
-                    pipes.clear();
-                    coins.clear();
-                    player.setFloor(550 - 85 - player.getHeight());
-                    player.jump();
-                }
+                case Z -> entityController.clearScreen();
                 // 播放跳跃音乐
                 case UP -> {
-                    if (!player.isToDown()) {
+                    if(!player.isToDown()){
                         Media jump = new Media(new File("assets/sounds/jump.mp3").toURI().toString());
                         MediaPlayer jumpPlayer = new MediaPlayer(jump);
                         jumpPlayer.setStartTime(Duration.millis(7));

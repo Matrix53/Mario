@@ -1,7 +1,7 @@
 package level;
 
-public class Level1 {
-    public static void start(){
+public class Level1 extends Level{
+    public void start(){
         Controller controller=Controller.getInstance();
 
         int intro = 500;

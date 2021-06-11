@@ -201,7 +201,6 @@ public class Player implements Collidable {
             }else{
                 level--;
                 enemy.changeDirection();
-
                 updateLevel();
             }
         }
