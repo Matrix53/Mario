@@ -160,7 +160,7 @@ public class Player implements Collidable {
             if (isToUp) {
                 y -= jumpHeight;
                 jumpTimer++;
-                if (jumpTimer == 62) {
+                if (jumpTimer == 36) {
                     isToUp = false;
                     isToDown = true;
                 }
@@ -183,24 +183,25 @@ public class Player implements Collidable {
         animateTimer=0;
     }
 
-    public void hitEnemy(Enemy enemy) {
-        if (enemy.isDead()) {
+    public void hitEnemy(Enemy enemy){
+        if(enemy.isDead()){
             return;
-        } else if (isToDown) {
+        }else if(isToDown){
             enemy.remove();
-            isToDown = false;
-            isToUp = true;
-        } else {
-            if (level == 0) {
-                image[0] = new Image("images/player/marioDead.png");
-                moveLength = 0;
-                floor = 550;
-                isToUp = true;
-                isDead = true;
-                animateTimer = 0;
-            } else {
+            isToDown=false;
+            isToUp=true;
+        }else{
+            if(level==0){
+                image[0]=new Image("images/player/marioDead.png");
+                moveLength=0;
+                floor=550;
+                isToUp=true;
+                isDead=true;
+                animateTimer=0;
+            }else{
                 level--;
                 enemy.changeDirection();
+
                 updateLevel();
             }
         }
