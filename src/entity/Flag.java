@@ -13,7 +13,7 @@ public class Flag implements Collidable{
     public Flag(int x, int y){
         this.x = x;
         this.y = y;
-        this.image= new Image("images/flag/flag.png");
+        this.image= new Image("images/flag/flag.png", 150, 300, false, true);
     }
 
     /**

@@ -4,6 +4,7 @@ import entity.*;
 import entity.box.Box;
 import entity.box.PowerUp;
 import entity.box.BoxCoin;
+import entity.box.PropType;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -60,6 +61,12 @@ public class Controller {
 
     public void addBox(int x, int h) {
         Box box = new Box(x, 0);
+        box.setY(550 - 85 - box.getHeight() - h);
+        boxes.add(box);
+    }
+
+    public void addBox(int x, int h, PropType type) {
+        Box box = new Box(x, 0, type);
         box.setY(550 - 85 - box.getHeight() - h);
         boxes.add(box);
     }

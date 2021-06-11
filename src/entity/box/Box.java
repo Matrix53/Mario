@@ -18,7 +18,7 @@ public class Box implements Collidable {
     private PowerUp powerUp;
 
     /**
-     * 含道具的盒子的构造方法
+     * 含随机道具的盒子的构造方法
      * @param x 盒子的x坐标
      * @param y 盒子的y坐标
      */
@@ -33,6 +33,25 @@ public class Box implements Collidable {
         this.isOpened=false;
         propType = PropType.getRandomType();
     }
+
+    /**
+     * 可以指定盒内道具的盒子的构造方法
+     * @param x 盒子的坐标x
+     * @param y 盒子的坐标y
+     * @param type 盒子内道具种类
+     */
+    public Box(int x, int y, PropType type) {
+        this.x = x;
+        this.y = y;
+        this.image= new Image[3];
+        for (int i = 0; i < 3; i++){
+            image[i] = new Image("images/box/box" + i + ".png");
+        }
+        this.usedImage= new Image("images/box/box3.png");
+        this.isOpened=false;
+        propType = type;
+    }
+
 
     /**
      * 返回盒子的高度
