@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import level.Controller;
+import level.Level1;
 
 /**
  * 继承JavaFX的Application类作为游戏的主类，
@@ -18,15 +19,16 @@ public class Main extends Application{
      */
     @Override
     public void start(Stage stage){
-        Controller controller=Controller.getInstance();
-        Scene scene= controller.getScene();
-        stage.setScene(scene);
-        stage.setTitle("SuperMario");
-        Image icon=new Image("images/icon/marioIcon.png");
-        stage.getIcons().add(icon);
-        AnimationTimer timer=controller.getTimer();
-        timer.start();
-        stage.show();
+//        Controller controller=Controller.getInstance();
+//        Scene scene= controller.getScene();
+//        stage.setScene(scene);
+//        stage.setTitle("SuperMario");
+//        Image icon=new Image("images/icon/marioIcon.png");
+//        stage.getIcons().add(icon);
+//        AnimationTimer timer=controller.getTimer();
+//        timer.start();
+//        stage.show();
+        Level1.start(stage);
     }
 
     /**
