@@ -284,24 +284,24 @@ public class Controller {
                             box.setPowerUp(null);
                         }
                     }
-                    // 重新绘制屏幕
-                    gc.drawImage(background,0,0);
-                    coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(),coin.getY()));
-                    pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
-                    walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
-                    boxes.forEach(box -> {
-                        gc.drawImage(box.getImage(), box.getX(), box.getY());
-                        if(box.getCoin()!=null){
-                            BoxCoin coin= box.getCoin();
-                            gc.drawImage(coin.getImage(),coin.getX(), coin.getY());
-                        }else if(box.getPowerUp()!=null){
-                            PowerUp powerUp=box.getPowerUp();
-                            gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
-                        }
-                    });
-                    enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
-                    gc.drawImage(player.getImage(), player.getX(), player.getY());
                 }
+                // 重新绘制屏幕
+                gc.drawImage(background,0,0);
+                coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(),coin.getY()));
+                pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
+                walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
+                boxes.forEach(box -> {
+                    gc.drawImage(box.getImage(), box.getX(), box.getY());
+                    if(box.getCoin()!=null){
+                        BoxCoin coin= box.getCoin();
+                        gc.drawImage(coin.getImage(),coin.getX(), coin.getY());
+                    }else if(box.getPowerUp()!=null){
+                        PowerUp powerUp=box.getPowerUp();
+                        gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
+                    }
+                });
+                enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
+                gc.drawImage(player.getImage(), player.getX(), player.getY());
             }
         };
     }
