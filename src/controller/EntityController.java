@@ -2,6 +2,8 @@ package controller;
 
 import entity.*;
 import entity.box.Box;
+import entity.box.BoxCoin;
+import entity.box.PowerUp;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,6 +21,7 @@ public class EntityController {
     private final Flag flag;
     private final Player player;
     private final Title title;
+    private final Background background;
 
     private final Random random;
     private int maxAttempt;
@@ -82,7 +85,7 @@ public class EntityController {
     }
 
     public void addCoin(){
-        Coin coin=new Coin();
+        Coin coin=new Coin(800,0);
         int attempt=0;
         while(!isPosLegal(coin)
                 && attempt<maxAttempt){
@@ -187,8 +190,43 @@ public class EntityController {
         return gc;
     }
 
-    public void redraw(){
+    public void moveScreen(){
+        if (player.getX() >= 500) {
+            int moveLength = player.getMoveLength();
+            player.setX(500 - moveLength);
+            coins.forEach(coin -> coin.setX(coin.getX() - moveLength));
+            walls.forEach(wall -> wall.setX(wall.getX() - moveLength));
+            pipes.forEach(pipe -> pipe.setX(pipe.getX() - moveLength));
+            enemies.forEach(enemy -> enemy.setX(enemy.getX() - moveLength));
+            boxes.forEach(box -> box.setX(box.getX() - moveLength));
+            title.setX(title.getX() - moveLength);
+            flag.setX(flag.getX()-moveLength);
+        }
+    }
 
+    public void handleScreenEvent(){
+
+    }
+
+    public void refreshScreen(){
+        gc.drawImage(background.getImage(), background.getX(), background.getY());
+        gc.drawImage(title.getImage(), title.getX(), title.getY());
+        gc.drawImage(flag.getImage(),flag.getX(), flag.getY());
+        coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(), coin.getY()));
+        pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
+        walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
+        boxes.forEach(box -> {
+            gc.drawImage(box.getImage(), box.getX(), box.getY());
+            if (box.getCoin() != null) {
+                BoxCoin coin = box.getCoin();
+                gc.drawImage(coin.getImage(), coin.getX(), coin.getY());
+            } else if (box.getPowerUp() != null) {
+                PowerUp powerUp = box.getPowerUp();
+                gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
+            }
+        });
+        enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
+        gc.drawImage(player.getImage(), player.getX(), player.getY());
     }
 
     private EntityController(){
@@ -200,6 +238,7 @@ public class EntityController {
         flag=new Flag(-50,0);
         player=new Player();
         title=new Title(0,0);
+        background=new Background(0,0);
         random=new Random();
         maxAttempt=10;
         canvas=new Canvas(800,550);

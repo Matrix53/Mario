@@ -86,24 +86,14 @@ public class Controller {
             }
         });
         // 定义动画的逐帧处理逻辑
-        this.timer = new AnimationTimer() {
+        this.timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
                 // 背景音乐
                 normalPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 normalPlayer.play();
                 // 移动屏幕
-                if (player.getX() >= 500) {
-                    int moveLength = player.getMoveLength();
-                    player.setX(500 - moveLength);
-                    coins.forEach(coin -> coin.setX(coin.getX() - moveLength));
-                    walls.forEach(wall -> wall.setX(wall.getX() - moveLength));
-                    pipes.forEach(pipe -> pipe.setX(pipe.getX() - moveLength));
-                    enemies.forEach(enemy -> enemy.setX(enemy.getX() - moveLength));
-                    boxes.forEach(box -> box.setX(box.getX() - moveLength));
-                    title.setX(title.getX() - moveLength);
-                    flag.setX(flag.getX()-moveLength);
-                }
+                entityController.moveScreen();
                 // 处理核心碰撞和动画
                 if (player.isWin()) {
                     ;
@@ -202,24 +192,7 @@ public class Controller {
                 // 处理跳跃动画
                 player.jump();
                 // 重新绘制屏幕
-                gc.drawImage(background, 0, 0);
-                gc.drawImage(title.getImage(), title.getX(), title.getY());
-                coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(), coin.getY()));
-                pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
-                walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
-                boxes.forEach(box -> {
-                    gc.drawImage(box.getImage(), box.getX(), box.getY());
-                    if (box.getCoin() != null) {
-                        BoxCoin coin = box.getCoin();
-                        gc.drawImage(coin.getImage(), coin.getX(), coin.getY());
-                    } else if (box.getPowerUp() != null) {
-                        PowerUp powerUp = box.getPowerUp();
-                        gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
-                    }
-                });
-                enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
-                gc.drawImage(flag.getImage(),flag.getX(), flag.getY());
-                gc.drawImage(player.getImage(), player.getX(), player.getY());
+                entityController.refreshScreen();
             }
         };
     }
