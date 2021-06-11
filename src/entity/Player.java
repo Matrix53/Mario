@@ -162,7 +162,7 @@ public class Player implements Collidable {
             if (isToUp) {
                 y -= jumpHeight;
                 jumpTimer++;
-                if (jumpTimer == 62) {
+                if (jumpTimer == 36) {
                     isToUp = false;
                     isToDown = true;
                 }
