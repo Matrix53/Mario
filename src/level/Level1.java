@@ -4,6 +4,8 @@ import entity.box.PropType;
 
 /**
  * first Level of the game
+ *
+ * @author luxia
  */
 public class Level1 {
     private static final Controller controller = Controller.getInstance();
@@ -93,7 +95,9 @@ public class Level1 {
         return lower + boxHeight * 3 + 200;
     }
 
-
+    /**
+     * main part of the design of level 1
+     */
     public static void start() {
         int initialPoint = 400;
         initialPoint += intro(initialPoint);

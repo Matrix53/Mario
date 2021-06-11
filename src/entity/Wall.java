@@ -37,6 +37,16 @@ public class Wall implements Collidable {
     }
 
     /**
+     * 得到墙的y坐标
+     *
+     * @return 墙的y坐标
+     */
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    /**
      * 设置砖块的x坐标
      *
      * @param x x坐标

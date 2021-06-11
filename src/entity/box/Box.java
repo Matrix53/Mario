@@ -10,10 +10,10 @@ public class Box implements Collidable {
     private int x;
     private int y; // position
     private final Image[] image; // store the animation of entity.box;
-    private Image usedImage;
+    private final Image usedImage;
     private boolean isOpened;
     private int timer = 0; // timer
-    private PropType propType;
+    private final PropType propType;
     private BoxCoin coin;
     private PowerUp powerUp;
 
@@ -80,6 +80,7 @@ public class Box implements Collidable {
      *
      * @return 盒子的x坐标
      */
+    @Override
     public int getX() {
         // get the x position
         return x;
@@ -99,6 +100,7 @@ public class Box implements Collidable {
      *
      * @return 盒子的y坐标
      */
+    @Override
     public int getY() {
         // get the y position
         return y;
@@ -127,6 +129,7 @@ public class Box implements Collidable {
      *
      * @return 盒子的图片
      */
+    @Override
     public Image getImage() {
         //  image of the entity.box
         return this.isOpened ? usedImage : image[timer / 15];

@@ -1,13 +1,15 @@
 package entity.box;
 
+import entity.Collidable;
 import javafx.scene.image.Image;
 
 /**
  * 盒子被撞击后生成的金币
+ *
  * @author luxia
  * @version 1.0
  */
-public class BoxCoin {
+public class BoxCoin implements Collidable {
     private int x;
     private int y; // position
     private Image[] image = new Image[4];
@@ -19,6 +21,7 @@ public class BoxCoin {
 
     /**
      * 盒中金币的构造方法
+     *
      * @param x 生成实体的x坐标
      * @param y 生成实体的y坐标
      */
@@ -31,22 +34,27 @@ public class BoxCoin {
 
     /**
      * 返回实体的x坐标
+     *
      * @return 实体的x坐标
      */
+    @Override
     public int getX() {
         return x;
     }
 
     /**
      * 返回实体的y坐标
+     *
      * @return 实体的y坐标
      */
+    @Override
     public int getY() {
         return y;
     }
 
     /**
      * 返回当前实体的可见性
+     *
      * @return 实体是否可见
      */
     public boolean isVisible() {
@@ -55,10 +63,22 @@ public class BoxCoin {
 
     /**
      * 返回当前帧需要显示的图片
+     *
      * @return 当前帧需要显示的图片
      */
+    @Override
     public Image getImage() {
         return image[timer / 3];
+    }
+
+    @Override
+    public int getHeight() {
+        return (int) image[0].getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return (int) image[0].getWidth();
     }
 
     /**

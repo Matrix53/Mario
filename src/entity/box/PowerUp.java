@@ -85,6 +85,7 @@ public class PowerUp implements Collidable {
      *
      * @return 图
      */
+    @Override
     public Image getImage() {
         return image;
     }

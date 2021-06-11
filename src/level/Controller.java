@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * 控制类
+ */
 public class Controller {
     private final Canvas canvas = new Canvas(800, 550);
     private final Group root = new Group(canvas);
@@ -45,6 +48,9 @@ public class Controller {
     private final MediaPlayer diePlayer = new MediaPlayer(die);
     private final AnimationTimer timer;
 
+    /**
+     * 清除画面中所有实体
+     */
     public void clearScreen() {
         boxes.clear();
         enemies.clear();
@@ -53,73 +59,140 @@ public class Controller {
         coins.clear();
     }
 
-    public void endGame(){
-        Stage stage=(Stage)scene.getWindow();
+    /**
+     * 游戏结束
+     */
+    public void endGame() {
+        Stage stage = (Stage) scene.getWindow();
         stage.close();
     }
 
-    public void stopGame(){
+    /**
+     * 暂停游戏
+     */
+    public void stopGame() {
         timer.stop();
     }
 
-    public void continueGame(){
+    /**
+     * 继续游戏
+     */
+    public void continueGame() {
         timer.start();
     }
 
+    /**
+     * 增加一个敌人
+     *
+     * @param x 敌人的x坐标
+     * @param h 敌人的高度
+     */
     public void addEnemy(int x, int h) {
-        Enemy enemy = new Enemy();
+        Enemy enemy = new Enemy(x, 0);
         enemy.setX(x);
         enemy.setY(550 - 85 - enemy.getHeight() - h);
         enemies.add(enemy);
     }
 
+    /**
+     * 增加一个盒子
+     *
+     * @param x 盒子的x坐标
+     * @param h 盒子的高度
+     */
     public void addBox(int x, int h) {
         Box box = new Box(x, 0);
         box.setY(550 - 85 - box.getHeight() - h);
         boxes.add(box);
     }
 
+    /**
+     * 增加一个盒子
+     *
+     * @param x    盒子的x坐标
+     * @param h    盒子的y坐标
+     * @param type 盒子内道具类型
+     */
     public void addBox(int x, int h, PropType type) {
         Box box = new Box(x, 0, type);
         box.setY(550 - 85 - box.getHeight() - h);
         boxes.add(box);
     }
 
+    /**
+     * 增加一个硬币
+     *
+     * @param x 硬币的x坐标
+     * @param h 硬币的高度
+     */
     public void addCoin(int x, int h) {
         Coin coin = new Coin(x, 0);
         coin.setY(550 - 85 - coin.getHeight() - h);
         coins.add(coin);
     }
 
+    /**
+     * 增加一个大管道
+     *
+     * @param x 大管道的x坐标
+     */
     public void addBigPipe(int x) {
         Image image = new Image("images/pipe/pipeBig.png");
         Pipe pipe = new Pipe(x, image);
         pipes.add(pipe);
     }
 
+    /**
+     * 增加一个小管道
+     *
+     * @param x 小管道的x坐标
+     */
     public void addSmallPipe(int x) {
         Image image = new Image("images/pipe/pipeSmall.png");
         Pipe pipe = new Pipe(x, image);
         pipes.add(pipe);
     }
 
+    /**
+     * 增加一个砖块
+     *
+     * @param x 砖块的x坐标
+     * @param h 砖块的高度
+     */
     public void addWall(int x, int h) {
         Wall wall = new Wall(x, 0);
         wall.setY(550 - 85 - wall.getHeight() - h);
         walls.add(wall);
     }
 
+    /**
+     * 设置旗子的位置
+     *
+     * @param x 旗子的x坐标
+     * @param h 旗子的高度
+     */
     public void setFlagPos(int x, int h) {
         flag.setX(x);
         flag.setY(550 - 85 - flag.getHeight() - h);
     }
 
+    /**
+     * 设置玩家位置
+     *
+     * @param x 玩家的x坐标
+     * @param h 玩家的y坐标
+     */
     public void setPlayerPos(int x, int h) {
         player.setX(x);
         player.setY(550 - 85 - player.getHeight() - h);
     }
 
-    public void setTitlePos(int x){
+    /**
+     * 设置标题的位置
+     *
+     * @param x 标题的x坐标
+     */
+    public void setTitlePos(int x) {
         title.setX(x);
         title.setY(0);
     }
@@ -185,16 +258,16 @@ public class Controller {
                     coins.add(coin);
                 }
                 // 添加旗子
-                case F ->{
-                    flag.setY(550-85-flag.getHeight());
-                    flag.setX(random.nextInt(800-flag.getWidth()));
-                    while(flag.judgeCollision(enemies)
+                case F -> {
+                    flag.setY(550 - 85 - flag.getHeight());
+                    flag.setX(random.nextInt(800 - flag.getWidth()));
+                    while (flag.judgeCollision(enemies)
                             || flag.judgeCollision(boxes)
                             || flag.judgeCollision(walls)
                             || flag.judgeCollision(pipes)
                             || flag.judgeCollision(coins)
-                            || flag.judgeCollision(player)){
-                        flag.setX(random.nextInt(800-flag.getWidth()));
+                            || flag.judgeCollision(player)) {
+                        flag.setX(random.nextInt(800 - flag.getWidth()));
                     }
                 }
                 // 清屏
@@ -235,7 +308,7 @@ public class Controller {
                     enemies.forEach(enemy -> enemy.setX(enemy.getX() - moveLength));
                     boxes.forEach(box -> box.setX(box.getX() - moveLength));
                     title.setX(title.getX() - moveLength);
-                    flag.setX(flag.getX()-moveLength);
+                    flag.setX(flag.getX() - moveLength);
                 }
                 // 处理核心碰撞和动画
                 if (player.isWin()) {
@@ -249,7 +322,7 @@ public class Controller {
                     }
                 } else {
                     // 处理旗子的碰撞
-                    if(player.judgeCollision(flag)){
+                    if (player.judgeCollision(flag)) {
                         player.hitFlag();
                     }
                     // 处理敌人的碰撞
@@ -351,20 +424,35 @@ public class Controller {
                     }
                 });
                 enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
-                gc.drawImage(flag.getImage(),flag.getX(), flag.getY());
+                gc.drawImage(flag.getImage(), flag.getX(), flag.getY());
                 gc.drawImage(player.getImage(), player.getX(), player.getY());
             }
         };
     }
 
+    /**
+     * 得到场景
+     *
+     * @return 场景
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * 得到计时器
+     *
+     * @return 计时器
+     */
     public AnimationTimer getTimer() {
         return timer;
     }
 
+    /**
+     * 得到控制类
+     *
+     * @return 控制类
+     */
     public static Controller getInstance() {
         return Singleton.INSTANCE.getInstance();
     }

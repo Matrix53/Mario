@@ -36,6 +36,20 @@ public class Enemy implements Collidable {
         this.floor = y;
     }
 
+    public Enemy(int x, int y) {
+        this.image = new Image[2];
+        image[0] = new Image("images/enemy/enemy1.png");
+        image[1] = new Image("images/enemy/enemy2.png");
+        this.x = x;
+        this.y = y;
+        this.isToLeft = true;
+        this.isDead = false;
+        this.removeTimer = 0;
+        this.moveLength = 2;
+        this.animateTimer = 0;
+        this.floor = y;
+    }
+
     /**
      * 得到敌人的x坐标
      *
@@ -115,6 +129,7 @@ public class Enemy implements Collidable {
      *
      * @return 敌人显示的图片
      */
+    @Override
     public Image getImage() {
         return animateTimer < 20 ? image[0] : image[1];
     }
