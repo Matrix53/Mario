@@ -1,5 +1,6 @@
 package level;
 
+import controller.EntityController;
 import entity.box.PropType;
 
 /**
@@ -8,9 +9,9 @@ import entity.box.PropType;
  * @author luxia
  */
 public class Level1 extends Level{
-    private static final Controller controller = Controller.getInstance();
+    private final EntityController controller = EntityController.getInstance();
 
-    private static int intro(int startPoint) {
+    private int intro(int startPoint) {
         controller.addEnemy(startPoint, 0);
         controller.addWall(startPoint + 100, 120);
         controller.addBox(startPoint + 100 + 34, 120, PropType.BOXCOIN);
@@ -19,7 +20,7 @@ public class Level1 extends Level{
         return 100 + 34 * 2 + 200; // length
     }
 
-    private static int pipeArea(int startPoint) {
+    private int pipeArea(int startPoint) {
         controller.addSmallPipe(startPoint);
         controller.addEnemy(startPoint + 100, 0);
         controller.addSmallPipe(startPoint + 200);
@@ -35,7 +36,7 @@ public class Level1 extends Level{
         return 1000;
     }
 
-    private static int hadBetterClimb(int startPoint) {
+    private int hadBetterClimb(int startPoint) {
         // you had better climb the wall
         for (int i = 0; i < 5; i++) {
             for (int j = Math.max(i - 1, 0); j < i; j++) {
@@ -57,7 +58,7 @@ public class Level1 extends Level{
         return 100 * (5 + 4 * 2) + 400;
     }
 
-    private static int breakTheWall(int startPoint) {
+    private int breakTheWall(int startPoint) {
         // you can break the wall
         int interval = 80;
         int boxHeight = 34;
@@ -73,7 +74,7 @@ public class Level1 extends Level{
         return boxHeight * 2 + interval * 2 + 200;
     }
 
-    private static int breakWallChallenge(int startPoint) {
+    private int breakWallChallenge(int startPoint) {
 //        controller.addBox(80, 50, PropType.POWERUP);
         int center = startPoint + 200;
         int boxHeight = 34;
@@ -98,6 +99,7 @@ public class Level1 extends Level{
     /**
      * main part of the design of level 1
      */
+    @Override
     public void start() {
         int initialPoint = 400;
         initialPoint += intro(initialPoint);
