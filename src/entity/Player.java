@@ -152,8 +152,6 @@ public class Player implements Collidable {
             jumpTimer = 0;
             isToUp = false;
             isToDown = true;
-//            floor=550-85-getHeight();
-//            y=floor;
         }
     }
 

@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -49,6 +50,19 @@ public class Controller {
         walls.clear();
         pipes.clear();
         coins.clear();
+    }
+
+    public void endGame(){
+        Stage stage=(Stage)scene.getWindow();
+        stage.close();
+    }
+
+    public void stopGame(){
+        timer.stop();
+    }
+
+    public void continueGame(){
+        timer.start();
     }
 
     public void addEnemy(int x, int h) {
@@ -98,8 +112,8 @@ public class Controller {
         player.setY(550-85-player.getHeight()-h);
     }
 
-    public void setTitle(){
-        title.setX(0);
+    public void setTitlePos(int x){
+        title.setX(x);
         title.setY(0);
     }
 
