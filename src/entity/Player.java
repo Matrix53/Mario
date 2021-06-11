@@ -140,6 +140,7 @@ public class Player implements Collidable {
                 && !isToUp
                 && !isToDown){
             isToUp=true;
+            floor=550-85-getHeight();
         } else if(!input.contains(KeyCode.UP)
                 && input.contains(KeyCode.DOWN)){
             jumpTimer=0;
@@ -189,14 +190,12 @@ public class Player implements Collidable {
     }
 
     public void hitBox(Box box){
-        if(Math.abs(y+getHeight()- box.getY())<=5){
+        if(Math.abs(y+getHeight()- box.getY())<10){
             floor= box.getY()-getHeight();
             y=floor;
-        }else if(y<box.getY()+ box.getHeight()
-                && x< box.getX()){
+        }else if(Math.abs(x+getWidth()-box.getX())<=10){
             x-=moveLength;
-        }else if(y<box.getY()+ box.getHeight()
-                && x> box.getX()){
+        }else if(Math.abs(x-box.getX()- box.getWidth())<=10){
             x+=moveLength;
         }else{
             if(Math.abs(y-box.getY()- box.getHeight())<=10
@@ -210,7 +209,8 @@ public class Player implements Collidable {
                 x+=moveLength;
             }
         }
-        if(Math.abs(y-floor)<=5
+        if((Math.abs(x-box.getX()-box.getWidth())<=5
+                || Math.abs(x+getWidth()- box.getX())<=5)
                 && !isToUp
                 && !isToDown){
             floor=550-85-getHeight();

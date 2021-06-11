@@ -205,8 +205,6 @@ public class Controller {
                         Platform.exit();
                     }
                 }else{
-                    // 处理用户输入
-                    player.move(input);
                     // 处理敌人的碰撞
                     for(int i=0;i<enemies.size();++i){
                         Enemy enemy=enemies.get(i);
@@ -284,6 +282,8 @@ public class Controller {
                             box.setPowerUp(null);
                         }
                     }
+                    // 处理用户输入
+                    player.move(input);
                 }
                 // 重新绘制屏幕
                 gc.drawImage(background,0,0);
