@@ -192,8 +192,6 @@ public class Controller {
                     enemies.forEach(enemy -> enemy.setX(enemy.getX()-moveLength));
                     boxes.forEach(box -> box.setX(box.getX()-moveLength));
                 }
-                // 处理跳跃动画
-                player.jump();
                 // 处理核心碰撞和动画
                 if(player.isWin()){
 
@@ -284,6 +282,8 @@ public class Controller {
                     }
                     // 处理用户输入
                     player.move(input);
+                    // 处理跳跃动画
+                    player.jump();
                 }
                 // 重新绘制屏幕
                 gc.drawImage(background,0,0);

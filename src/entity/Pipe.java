@@ -1,6 +1,5 @@
 package entity;
 
-import entity.Collidable;
 import javafx.scene.image.Image;
 
 public class Pipe implements Collidable {
@@ -11,7 +10,7 @@ public class Pipe implements Collidable {
     public Pipe(int x,Image image){
         this.image=image;
         this.x=x;
-        this.y=(int)(550-85- image.getHeight());
+        this.y=(int)(550-85-image.getHeight());
     }
 
     @Override

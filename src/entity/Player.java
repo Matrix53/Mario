@@ -144,8 +144,10 @@ public class Player implements Collidable {
         } else if(!input.contains(KeyCode.UP)
                 && input.contains(KeyCode.DOWN)){
             jumpTimer=0;
-            floor=550-85-getHeight();
-            y=floor;
+            isToUp=false;
+            isToDown=true;
+//            floor=550-85-getHeight();
+//            y=floor;
         }
     }
 
@@ -163,6 +165,7 @@ public class Player implements Collidable {
                 y+=jumpHeight;
                 if(y>=floor){
                     isToDown=false;
+                    y=floor;
                 }
             }
         }
@@ -233,15 +236,18 @@ public class Player implements Collidable {
     }
 
     public void hitPipe(Pipe pipe){
-        if(Math.abs(y+getHeight()- pipe.getY())<=10){
+        if(Math.abs(y+getHeight()- pipe.getY())<10
+                && isToDown){
             floor= pipe.getY()-getHeight();
             y=floor;
-        }else if(x<pipe.getX()){
+        }else if(Math.abs(x+getWidth()-pipe.getX())<=10){
             x-=moveLength;
-        }else{
+        }else if(Math.abs(x-pipe.getX()- pipe.getWidth())<=10){
             x+=moveLength;
         }
-        if(Math.abs(y-floor)<=5
+        if((Math.abs(x-pipe.getX()-pipe.getWidth())<=5
+                || Math.abs(x+getWidth()- pipe.getX())<=5)
+                && Math.abs(y+getHeight()-pipe.getY()-pipe.getHeight())>10
                 && !isToUp
                 && !isToDown){
             floor=550-85-getHeight();
