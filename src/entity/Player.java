@@ -178,7 +178,7 @@ public class Player implements Collidable {
 
     public void hitEnemy(Enemy enemy){
         if(enemy.isDead()){
-          return ;
+            return;
         } else if(isToDown){
             enemy.remove();
             isToDown=false;
