@@ -12,6 +12,7 @@ public class Enemy implements Collidable {
     private int x;
     private int y;
     private boolean isToLeft;
+    private boolean isDead;
     private int removeTimer;
     private int moveLength;
     private Image[] image;
@@ -25,6 +26,7 @@ public class Enemy implements Collidable {
         this.x=800;
         this.y=(int)(550-85-image[0].getHeight());
         this.isToLeft=true;
+        this.isDead=false;
         this.removeTimer=0;
         this.moveLength=2;
         this.animateTimer=0;
@@ -87,6 +89,10 @@ public class Enemy implements Collidable {
         return (int)getImage().getWidth();
     }
 
+    public boolean isDead(){
+        return isDead;
+    }
+
     public int getFloor() {
         return floor;
     }
@@ -119,6 +125,7 @@ public class Enemy implements Collidable {
     }
 
     public void remove(){
+        isDead=true;
         Image deadImage=new Image("images/enemy/enemyDead.png");
         image[0]=deadImage;
         image[1]=deadImage;

@@ -11,7 +11,7 @@ public enum PropType {
     BOXCOIN,
     POWERUP;
 
-    static final private double coinProb = 0.8;
+    static final private double coinProb = 0.5;
     static final private Random rand = new Random();
 
     /**

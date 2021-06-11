@@ -106,10 +106,15 @@ public class Player implements Collidable {
     }
 
     private void updateLevel(){
+        int oldHeight=getHeight();
+        int oldFloor=floor;
+        int oldY=y;
         for(int i=0;i<5;++i){
             image[i]=new Image("images/player/marioRight"+i+"Lvl"+level+".png");
             image[i+5]=new Image("images/player/marioLeft"+i+"Lvl"+level+".png");
         }
+        floor=oldFloor+oldHeight-getHeight();
+        y=oldY+oldHeight-getHeight();
     }
 
     public void move(HashSet<KeyCode> input){
@@ -172,7 +177,9 @@ public class Player implements Collidable {
     }
 
     public void hitEnemy(Enemy enemy){
-        if(isToDown){
+        if(enemy.isDead()){
+          return ;
+        } else if(isToDown){
             enemy.remove();
             isToDown=false;
             isToUp=true;
