@@ -177,6 +177,14 @@ public class Player implements Collidable {
         }
     }
 
+    public void hitFlag(){
+        isWin=true;
+        isToDown=false;
+        isToUp=true;
+        moveLength=0;
+        animateTimer=0;
+    }
+
     public void hitEnemy(Enemy enemy) {
         if (enemy.isDead()) {
             return;

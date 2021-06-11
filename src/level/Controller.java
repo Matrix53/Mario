@@ -163,6 +163,18 @@ public class Controller {
                     }
                     coins.add(coin);
                 }
+                // 添加旗子
+                case F ->{
+                    flag.setY(550-85-flag.getHeight());
+                    flag.setX(random.nextInt(800-flag.getWidth()));
+                    while(flag.judgeCollision(enemies)
+                            || flag.judgeCollision(boxes)
+                            || flag.judgeCollision(walls)
+                            || flag.judgeCollision(pipes)
+                            || flag.judgeCollision(coins)){
+                        flag.setX(random.nextInt(800-flag.getWidth()));
+                    }
+                }
                 // 清屏
                 case Z -> {
                     boxes.clear();
@@ -213,6 +225,7 @@ public class Controller {
                         Platform.exit();
                     }
                 } else {
+                    //
                     // 处理敌人的碰撞
                     for (int i = 0; i < enemies.size(); ++i) {
                         Enemy enemy = enemies.get(i);
@@ -297,6 +310,7 @@ public class Controller {
                 }
                 // 重新绘制屏幕
                 gc.drawImage(background, 0, 0);
+                gc.drawImage(title.getImage(), title.getX(), title.getY());
                 coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(), coin.getY()));
                 pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
                 walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
@@ -310,7 +324,6 @@ public class Controller {
                         gc.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY());
                     }
                 });
-                gc.drawImage(title.getImage(), title.getX(), title.getY());
                 enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
                 gc.drawImage(player.getImage(), player.getX(), player.getY());
             }
