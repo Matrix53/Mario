@@ -33,6 +33,10 @@ public class Wall implements Collidable {
         return y;
     }
 
+    public void setY(int y){
+        this.y=y;
+    }
+
     @Override
     public int getHeight(){
         return (int)image.getHeight();

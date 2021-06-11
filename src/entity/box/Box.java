@@ -78,6 +78,10 @@ public class Box implements Collidable {
         return y;
     }
 
+    public void setY(int y){
+        this.y=y;
+    }
+
     /**
      * 返回盒子中装的道具的类型，BOXCOIN或者POWERUP
      * @return 盒子中道具类型
