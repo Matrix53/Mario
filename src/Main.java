@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import level.Controller;
-import level.Level1;
 
 /**
  * 继承JavaFX的Application类作为游戏的主类， 游戏将从这个类开始运行

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  */
 public class Pipe implements Collidable {
     private int x;
-    private final int y;
+    private int y;
     private final Image image;
 
     /**

@@ -2,17 +2,11 @@ package level;
 
 import controller.EntityController;
 import controller.LevelController;
-import entity.*;
-import entity.box.Box;
-import entity.box.PowerUp;
-import entity.box.BoxCoin;
-import entity.box.PropType;
+import entity.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
@@ -32,13 +26,13 @@ public class Controller {
     private final Group root = new Group(entityController.getCanvas());
     private final Scene scene = new Scene(root);
     private final HashSet<KeyCode> input = new HashSet<>();
-    private final GraphicsContext gc = canvas.getGraphicsContext2D();
     private final Image background = new Image("images/background/background.png");
     private final Media normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
     private final Media die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
     private final MediaPlayer normalPlayer = new MediaPlayer(normal);
     private final MediaPlayer diePlayer = new MediaPlayer(die);
     private final AnimationTimer timer;
+    private final Player player= entityController.getPlayer();
 
     /**
      * 游戏结束
@@ -118,89 +112,7 @@ public class Controller {
                         Platform.exit();
                     }
                 } else {
-                    // 处理旗子的碰撞
-                    if (player.judgeCollision(flag)) {
-                        player.hitFlag();
-                    }
-                    // 处理敌人的碰撞
-                    for (int i = 0; i < enemies.size(); ++i) {
-                        Enemy enemy = enemies.get(i);
-                        enemy.move();
-                        if (player.judgeCollision(enemy)) {
-                            player.hitEnemy(enemy);
-                        }
-                        for (int j = i + 1; j < enemies.size(); ++j) {
-                            if (enemy.judgeCollision(enemies.get(j))) {
-                                enemy.changeDirection();
-                                enemies.get(j).changeDirection();
-                            }
-                        }
-                        pipes.forEach(pipe -> {
-                            if (enemy.judgeCollision(pipe)) {
-                                enemy.changeDirection();
-                            }
-                        });
-                    }
-                    // 处理管道的碰撞
-                    pipes.forEach(pipe -> {
-                        if (player.judgeCollision(pipe)) {
-                            player.hitPipe(pipe);
-                        }
-                    });
-                    // 处理盒子的碰撞
-                    boxes.forEach(box -> {
-                        box.animate();
-                        if (player.judgeCollision(box)) {
-                            player.hitBox(box);
-                        }
-                        if (box.getCoin() != null) {
-                            box.getCoin().animate();
-                        } else if (box.getPowerUp() != null) {
-                            PowerUp powerUp = box.getPowerUp();
-                            if (!powerUp.judgeCollision(box)
-                                    && !powerUp.getFalling()
-                                    && box.getY() > powerUp.getY()) {
-                                powerUp.setFalling(true);
-                            }
-                            powerUp.move();
-                            pipes.forEach(pipe -> {
-                                if (powerUp.judgeCollision(pipe)) {
-                                    powerUp.changeDirection();
-                                }
-                            });
-                            if (player.judgeCollision(powerUp)) {
-                                player.hitPowerUp(powerUp);
-                            }
-                        }
-                    });
-                    // 处理墙壁的碰撞
-                    walls.forEach(wall -> {
-                        if (player.judgeCollision(wall)) {
-                            player.hitWall(wall);
-                        }
-                    });
-                    // 处理硬币的碰撞
-                    coins.forEach(coin -> {
-                        if (player.judgeCollision(coin)) {
-                            coin.vanish();
-                        }
-                        coin.animate();
-                    });
-                    // 移除失效的实体
-                    walls.removeIf(wall -> wall.getX() < 0);
-                    coins.removeIf(coin -> coin.getX() < 0);
-                    enemies.removeIf(enemy -> enemy.getX() < 0);
-                    for (Box box : boxes) {
-                        if (box.getCoin() != null
-                                && box.getCoin().getX() < 0) {
-                            box.setCoin(null);
-                        } else if (box.getPowerUp() != null
-                                && box.getPowerUp().getX() < 0) {
-                            box.setPowerUp(null);
-                        }
-                    }
-                    // 处理用户输入
-                    player.move(input);
+                    entityController.handleScreenEvent(input);
                 }
                 // 处理跳跃动画
                 player.jump();
