@@ -29,7 +29,6 @@ public class Main extends Application {
         AnimationTimer timer = controller.getTimer();
         timer.start();
         stage.show();
-        Level1.start();
     }
 
     /**

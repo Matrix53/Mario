@@ -4,6 +4,7 @@ import entity.*;
 import entity.box.Box;
 import entity.box.BoxCoin;
 import entity.box.PowerUp;
+import entity.box.PropType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -28,6 +29,9 @@ public class EntityController {
     private final Canvas canvas;
     private final GraphicsContext gc;
 
+    /**
+     * 清除画面中所有实体，但不进行画面的重新绘制
+     */
     public void clearScreen(){
         enemies.clear();
         walls.clear();
@@ -47,6 +51,9 @@ public class EntityController {
                 && entity.judgeCollision(player);
     }
 
+    /**
+     * 在当前屏幕的随机位置增加一个敌人
+     */
     public void addEnemy(){
         Enemy enemy=new Enemy();
         int attempt=0;
@@ -59,6 +66,12 @@ public class EntityController {
         if(attempt<maxAttempt) enemies.add(enemy);
     }
 
+    /**
+     * 在指定位置增加一个敌人
+     *
+     * @param x 敌人的x坐标
+     * @param h 敌人的高度
+     */
     public void addEnemy(int x, int h) {
         Enemy enemy = new Enemy();
         enemy.setX(x);
@@ -66,6 +79,9 @@ public class EntityController {
         enemies.add(enemy);
     }
 
+    /**
+     * 在当前屏幕的随机位置增加一个盒子
+     */
     public void addBox(){
         Box box=new Box(800,0);
         int attempt=0;
@@ -78,12 +94,37 @@ public class EntityController {
         if(attempt<maxAttempt) boxes.add(box);
     }
 
+    /**
+     * 在指定位置增加一个盒子
+     *
+     * @param x 盒子的x坐标
+     * @param h 盒子的高度
+     */
     public void addBox(int x, int h) {
         Box box = new Box(x, 0);
         box.setY(550 - 85 - box.getHeight() - h);
         boxes.add(box);
     }
 
+    /**
+     * 增加一个固定类型的盒子
+     *
+     * @param x    盒子的x坐标
+     * @param h    盒子的y坐标
+     * @param type 盒子内道具类型
+     */
+    public void addBox(int x, int h, PropType type) {
+        Box box = new Box(x, 0, type);
+        box.setY(550 - 85 - box.getHeight() - h);
+        boxes.add(box);
+    }
+
+    /**
+     * 在当前屏幕的随机位置增加一个硬币
+     *
+     * @param x 硬币的x坐标
+     * @param h 硬币的高度
+     */
     public void addCoin(){
         Coin coin=new Coin(800,0);
         int attempt=0;
@@ -96,13 +137,21 @@ public class EntityController {
         if(attempt<maxAttempt) coins.add(coin);
     }
 
+    /**
+     * 在指定位置增加一个硬币
+     *
+     * @param x 硬币的x坐标
+     * @param h 硬币的高度
+     */
     public void addCoin(int x, int h) {
         Coin coin = new Coin(x, 0);
         coin.setY(550 - 85 - coin.getHeight() - h);
         coins.add(coin);
     }
 
-
+    /**
+     * 在当前屏幕的随机位置增加一个大管道
+     */
     public void addBigPipe(){
         Image image=new Image("images/pipe/pipeBig.png");
         Pipe pipe=new Pipe(800,image);
@@ -116,12 +165,20 @@ public class EntityController {
         if(attempt<maxAttempt) pipes.add(pipe);
     }
 
+    /**
+     * 增加一个大管道
+     *
+     * @param x 大管道的x坐标
+     */
     public void addBigPipe(int x) {
         Image image = new Image("images/pipe/pipeBig.png");
         Pipe pipe = new Pipe(x, image);
         pipes.add(pipe);
     }
 
+    /**
+     * 在当前屏幕的随机位置增加一个小管道
+     */
     public void addSmallPipe(){
         Image image=new Image("images/pipe/pipeSmall.png");
         Pipe pipe=new Pipe(800,image);
@@ -135,12 +192,20 @@ public class EntityController {
         if(attempt<maxAttempt) pipes.add(pipe);
     }
 
+    /**
+     * 增加一个小管道
+     *
+     * @param x 小管道的x坐标
+     */
     public void addSmallPipe(int x) {
         Image image = new Image("images/pipe/pipeSmall.png");
         Pipe pipe = new Pipe(x, image);
         pipes.add(pipe);
     }
 
+    /**
+     * 在当前屏幕的随机位置增加一个砖块
+     */
     public void addWall(){
         Wall wall=new Wall(800,0);
         int attempt=0;
@@ -153,22 +218,45 @@ public class EntityController {
         if(attempt<maxAttempt) walls.add(wall);
     }
 
+    /**
+     * 在指定位置增加一个砖块
+     *
+     * @param x 砖块的x坐标
+     * @param h 砖块的高度
+     */
     public void addWall(int x, int h) {
         Wall wall = new Wall(x, 0);
         wall.setY(550 - 85 - wall.getHeight() - h);
         walls.add(wall);
     }
 
+    /**
+     * 设置旗子的位置
+     *
+     * @param x 旗子的x坐标
+     * @param h 旗子的高度
+     */
     public void setFlagPos(int x, int h) {
         flag.setX(x);
         flag.setY(550 - 85 - flag.getHeight() - h);
     }
 
+    /**
+     * 设置玩家位置
+     *
+     * @param x 玩家的x坐标
+     * @param h 玩家的y坐标
+     */
     public void setPlayerPos(int x, int h) {
         player.setX(x);
         player.setY(550 - 85 - player.getHeight() - h);
     }
 
+    /**
+     * 设置标题的位置
+     *
+     * @param x 标题的x坐标
+     */
     public void setTitlePos(int x){
         title.setX(x);
         title.setY(0);

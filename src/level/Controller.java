@@ -6,6 +6,7 @@ import entity.*;
 import entity.box.Box;
 import entity.box.PowerUp;
 import entity.box.BoxCoin;
+import entity.box.PropType;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -22,6 +23,9 @@ import javafx.util.Duration;
 import java.io.File;
 import java.util.HashSet;
 
+/**
+ * 控制类
+ */
 public class Controller {
     private final EntityController entityController=EntityController.getInstance();
     private final LevelController levelController=LevelController.getInstance();
@@ -36,16 +40,25 @@ public class Controller {
     private final MediaPlayer diePlayer = new MediaPlayer(die);
     private final AnimationTimer timer;
 
-    public void endGame(){
-        Stage stage=(Stage)scene.getWindow();
+    /**
+     * 游戏结束
+     */
+    public void endGame() {
+        Stage stage = (Stage) scene.getWindow();
         stage.close();
     }
 
-    public void stopGame(){
+    /**
+     * 暂停游戏
+     */
+    public void stopGame() {
         timer.stop();
     }
 
-    public void continueGame(){
+    /**
+     * 继续游戏
+     */
+    public void continueGame() {
         timer.start();
     }
 
@@ -106,7 +119,7 @@ public class Controller {
                     }
                 } else {
                     // 处理旗子的碰撞
-                    if(player.judgeCollision(flag)){
+                    if (player.judgeCollision(flag)) {
                         player.hitFlag();
                     }
                     // 处理敌人的碰撞
@@ -197,14 +210,29 @@ public class Controller {
         };
     }
 
+    /**
+     * 得到场景
+     *
+     * @return 场景
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * 得到计时器
+     *
+     * @return 计时器
+     */
     public AnimationTimer getTimer() {
         return timer;
     }
 
+    /**
+     * 得到控制类
+     *
+     * @return 控制类
+     */
     public static Controller getInstance() {
         return Singleton.INSTANCE.getInstance();
     }

@@ -4,16 +4,18 @@ import javafx.scene.image.Image;
 
 /**
  * 需要自己收集的硬币
+ *
  * @author luxia
  */
 public class Coin implements Collidable {
     private int x;
     private int y;
-    private Image[] image = new Image[3];
+    private final Image[] image = new Image[3];
     private int timer;
 
     /**
      * 生成硬币的构造方法
+     *
      * @param x x坐标
      * @param y y坐标
      */
@@ -28,6 +30,7 @@ public class Coin implements Collidable {
 
     /**
      * 得到硬币的尺寸高度
+     *
      * @return 硬币尺寸中的高度
      */
     @Override
@@ -37,6 +40,7 @@ public class Coin implements Collidable {
 
     /**
      * 得到硬币的宽度
+     *
      * @return 硬币的宽度
      */
     @Override
@@ -46,6 +50,7 @@ public class Coin implements Collidable {
 
     /**
      * 得到硬币的x坐标
+     *
      * @return 硬币的x坐标
      */
     @Override
@@ -53,12 +58,13 @@ public class Coin implements Collidable {
         return x;
     }
 
-    public void setX(int x){
-        this.x=x;
+    public void setX(int x) {
+        this.x = x;
     }
 
     /**
      * 得到硬币的y坐标
+     *
      * @return 硬币的y坐标
      */
     @Override
@@ -66,8 +72,8 @@ public class Coin implements Collidable {
         return y;
     }
 
-    public void setY(int y){
-        this.y=y;
+    public void setY(int y) {
+        this.y = y;
     }
 
     /**
@@ -80,8 +86,10 @@ public class Coin implements Collidable {
 
     /**
      * 得到当前硬币的图片
+     *
      * @return 当前硬币的图片
      */
+    @Override
     public Image getImage() {
         if (timer < 28)
             return image[0];
@@ -91,8 +99,11 @@ public class Coin implements Collidable {
             return image[2];
     }
 
-    public void vanish(){
-        x=-50;
+    /**
+     * 让硬币消失
+     */
+    public void vanish() {
+        x = -50;
     }
 
 }
