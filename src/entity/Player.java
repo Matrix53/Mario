@@ -250,29 +250,29 @@ public class Player implements Collidable {
     }
 
     public void hitWall(Wall wall){
-        if(Math.abs(y+getHeight()- wall.getY())<=5){
+        if(Math.abs(y+getHeight()- wall.getY())<10){
             floor= wall.getY()-getHeight();
             y=floor;
-        }else if(y<wall.getY()+ wall.getHeight()
-                && x< wall.getX()){
+        }else if(Math.abs(x+getWidth()-wall.getX())<=10){
             x-=moveLength;
-        }else if(y<wall.getY()+ wall.getHeight()
-                && x> wall.getX()){
+        }else if(Math.abs(x-wall.getX()- wall.getWidth())<=10){
             x+=moveLength;
         }else{
-            if(isToUp){
-                isToUp=false;
-                isToDown=true;
+            if(Math.abs(y-wall.getY()- wall.getHeight())<=10
+                    && isToUp){
                 if(level>0){
                     wall.setX(-50);
                 }
+                isToUp=false;
+                isToDown=true;
             }else if(x<=wall.getX()){
                 x-=moveLength;
             }else{
                 x+=moveLength;
             }
         }
-        if(Math.abs(y-floor)<=5
+        if((Math.abs(x-wall.getX()-wall.getWidth())<=5
+                || Math.abs(x+getWidth()- wall.getX())<=5)
                 && !isToUp
                 && !isToDown){
             floor=550-85-getHeight();

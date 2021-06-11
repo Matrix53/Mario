@@ -4,17 +4,22 @@ import entity.Collidable;
 import javafx.scene.image.Image;
 
 public class PowerUp implements Collidable {
-    private int x, y;
-    private int moveLength = 2;
-    private Image image = new Image("images/powerUp/powerUp.png");
-    private int jumpHeight = 8;
+    private int x;
+    private int y;
+    private int moveLength;
+    private Image image;
+    private int jumpHeight;
     private boolean goLeft;
     private boolean isFalling;
-    private boolean isVisible = true;
+    private boolean isVisible;
 
     public PowerUp(int x, int y) {
         this.x = x;
         this.y = y;
+        this.moveLength=2;
+        this.jumpHeight=8;
+        this.image=new Image("images/powerUp/powerUp.png");
+        this.isVisible=true;
     }
 
     @Override
