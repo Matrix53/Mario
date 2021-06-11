@@ -61,6 +61,10 @@ public class Box implements Collidable {
         return x;
     }
 
+    /**
+     * 设置盒子的x坐标
+     * @param x 将盒子的x坐标设置成x
+     */
     public void setX(int x){
         this.x=x;
     }
@@ -72,6 +76,10 @@ public class Box implements Collidable {
     public int getY() {
         // get the y position
         return y;
+    }
+
+    public void setY(int y){
+        this.y=y;
     }
 
     /**
@@ -91,6 +99,10 @@ public class Box implements Collidable {
         return this.isOpened ? usedImage : image[timer / 15];
     }
 
+    /**
+     * 得到盒子中的硬币
+     * @return 如果盒子有硬币，则得到盒子中的硬币，否则null
+     */
     public BoxCoin getCoin(){
         return coin;
     }
