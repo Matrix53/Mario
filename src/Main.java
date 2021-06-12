@@ -1,8 +1,8 @@
+import controller.MainController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import level.Controller;
 
 /**
  * 继承JavaFX的Application类作为游戏的主类， 游戏将从这个类开始运行
@@ -18,7 +18,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        Controller controller = Controller.getInstance();
+        MainController controller = MainController.getInstance();
         Scene scene = controller.getScene();
         stage.setScene(scene);
         stage.setTitle("SuperMario");
