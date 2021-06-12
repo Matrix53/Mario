@@ -2,3 +2,6 @@
 .DS_Store
 out
 record.txt
+*.sh
+src/META-INF
+*.iml
