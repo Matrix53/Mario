@@ -330,7 +330,6 @@ public class EntityController {
     public void moveScreen(){
         if (player.getX() >= 500) {
             int moveLength = player.getMoveLength();
-            player.setX(500 - moveLength);
             coins.forEach(coin -> coin.setX(coin.getX() - moveLength));
             walls.forEach(wall -> wall.setX(wall.getX() - moveLength));
             pipes.forEach(pipe -> pipe.setX(pipe.getX() - moveLength));
@@ -338,6 +337,8 @@ public class EntityController {
             boxes.forEach(box -> box.setX(box.getX() - moveLength));
             title.setX(title.getX() - moveLength);
             flag.setX(flag.getX()-moveLength);
+            player.setX(500 - moveLength);
+            background.move(moveLength);
         }
     }
 

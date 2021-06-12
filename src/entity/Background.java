@@ -63,4 +63,13 @@ public class Background {
     public Image getImage() {
         return image;
     }
+
+    /**
+     * 对背景进行水平方向的移动
+     * @param moveLength 需要背景移动的距离
+     */
+    public void move(int moveLength){
+        x-=moveLength;
+        if(x<=-800) x=0;
+    }
 }
