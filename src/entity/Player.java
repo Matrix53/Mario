@@ -80,6 +80,18 @@ public class Player implements Collidable {
         this.isToRight = false;
     }
 
+    public void reset(){
+        this.floor = (int) (550 - 85 - image[0].getHeight());
+        this.animateTimer = 0;
+        this.jumpTimer = 0;
+        this.moveLength=5;
+        this.isWin = false;
+        this.isDead = false;
+        this.isToDown = false;
+        this.isToUp = false;
+        this.isToRight = false;
+    }
+
     /**
      * 得到玩家的高度
      *

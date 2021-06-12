@@ -7,7 +7,6 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -26,13 +25,17 @@ public class Controller {
     private final Group root = new Group(entityController.getCanvas());
     private final Scene scene = new Scene(root);
     private final HashSet<KeyCode> input = new HashSet<>();
-    private final Image background = new Image("images/background/background.png");
     private final Media normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
     private final Media die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
     private final MediaPlayer normalPlayer = new MediaPlayer(normal);
     private final MediaPlayer diePlayer = new MediaPlayer(die);
     private final AnimationTimer timer;
     private final Player player= entityController.getPlayer();
+
+    public void startGame(){
+        timer.start();
+        levelController.startLevel(1);
+    }
 
     /**
      * 游戏结束
@@ -103,7 +106,12 @@ public class Controller {
                 entityController.moveScreen();
                 // 处理核心碰撞和动画
                 if (player.isWin()) {
-                    ;
+                    normalPlayer.setMute(true);
+                    diePlayer.play();
+                    diePlayer.setOnEndOfMedia(diePlayer::stop);
+                    if(diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
+                        levelController.startNextLevel();
+                    };
                 } else if (player.isDead()) {
                     normalPlayer.setMute(true);
                     diePlayer.play();

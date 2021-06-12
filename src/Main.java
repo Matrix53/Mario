@@ -1,4 +1,3 @@
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -25,8 +24,7 @@ public class Main extends Application {
         stage.setTitle("SuperMario");
         Image icon = new Image("images/icon/marioIcon.png");
         stage.getIcons().add(icon);
-        AnimationTimer timer = controller.getTimer();
-        timer.start();
+        controller.startGame();
         stage.show();
     }
 

@@ -1,10 +1,6 @@
 package level;
 
-import controller.EntityController;
-
 public class Level2 extends Level{
-    private final EntityController controller=EntityController.getInstance();
-
     private void addStairs(int x, int n, int direction){
         int blocks = n;
         if(direction == 1){
@@ -45,7 +41,7 @@ public class Level2 extends Level{
     }
 
     @Override
-    public void start(){
+    public void addEntity(){
         //page1
         controller.addBox(300, 100);
         controller.addSmallPipe(500);
@@ -113,8 +109,11 @@ public class Level2 extends Level{
         addVerticalWall(3400+34*3+100+34*3, 34*4, 4);
 
         addVerticalWall(3400+34*3+100+34*3+100, 0, 9);
+    }
 
-        //end
+    @Override
+    public void setInitPos(){
+        controller.setPlayerPos(50,0);
         controller.setFlagPos(3400+34*3+100+34*3+100, 34*9);
     }
 }

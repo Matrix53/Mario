@@ -1,7 +1,13 @@
 package level;
 
 public class EndLevel extends Level{
-    public void start(){
+    @Override
+    public void addEntity(){
+
+    }
+
+    @Override
+    public void setInitPos(){
 
     }
 }

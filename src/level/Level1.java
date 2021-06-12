@@ -1,6 +1,5 @@
 package level;
 
-import controller.EntityController;
 import entity.box.PropType;
 
 /**
@@ -9,8 +8,6 @@ import entity.box.PropType;
  * @author luxia
  */
 public class Level1 extends Level{
-    private final EntityController controller = EntityController.getInstance();
-
     private int intro(int startPoint) {
         controller.addEnemy(startPoint, 0);
         controller.addWall(startPoint + 100, 120);
@@ -100,7 +97,7 @@ public class Level1 extends Level{
      * main part of the design of level 1
      */
     @Override
-    public void start() {
+    public void addEntity() {
         int initialPoint = 400;
         initialPoint += intro(initialPoint);
         initialPoint += pipeArea(initialPoint);
@@ -108,5 +105,10 @@ public class Level1 extends Level{
         initialPoint += breakTheWall(initialPoint);
         initialPoint += breakWallChallenge(initialPoint);
         controller.setFlagPos(initialPoint + 200, 0);
+    }
+
+    @Override
+    public void setInitPos(){
+
     }
 }

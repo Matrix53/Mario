@@ -5,6 +5,7 @@ import entity.box.Box;
 import entity.box.BoxCoin;
 import entity.box.PowerUp;
 import entity.box.PropType;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -31,6 +32,10 @@ public class EntityController {
     private final Canvas canvas;
     private final GraphicsContext gc;
 
+    public void addKeyEvent(EventHandler handler){
+        canvas.setOnKeyReleased(handler);
+    }
+
     /**
      * 清除画面中所有实体，但不进行画面的重新绘制
      */
@@ -45,12 +50,12 @@ public class EntityController {
     private boolean isPosLegal(Collidable entity){
         return entity.getX()+ entity.getWidth()<800
                 && entity.getY()+ entity.getHeight()<550-85
-                && entity.judgeCollision(enemies)
-                && entity.judgeCollision(walls)
-                && entity.judgeCollision(pipes)
-                && entity.judgeCollision(coins)
-                && entity.judgeCollision(boxes)
-                && entity.judgeCollision(player);
+                && !entity.judgeCollision(enemies)
+                && !entity.judgeCollision(walls)
+                && !entity.judgeCollision(pipes)
+                && !entity.judgeCollision(coins)
+                && !entity.judgeCollision(boxes)
+                && !entity.judgeCollision(player);
     }
 
     /**
@@ -123,9 +128,6 @@ public class EntityController {
 
     /**
      * 在当前屏幕的随机位置增加一个硬币
-     *
-     * @param x 硬币的x坐标
-     * @param h 硬币的高度
      */
     public void addCoin(){
         Coin coin=new Coin(800,0);
@@ -162,7 +164,6 @@ public class EntityController {
                 && attempt<maxAttempt){
             attempt++;
             pipe.setX(random.nextInt(800- pipe.getWidth()));
-            pipe.setY(random.nextInt(550-85- pipe.getHeight()));
         }
         if(attempt<maxAttempt) pipes.add(pipe);
     }
@@ -182,14 +183,13 @@ public class EntityController {
      * 在当前屏幕的随机位置增加一个小管道
      */
     public void addSmallPipe(){
-        Image image=new Image("images/pipe/pipeSmall.png");
+        Image image=new Image("imagees/pipe/pipeSmall.png");
         Pipe pipe=new Pipe(800,image);
         int attempt=0;
         while(!isPosLegal(pipe)
                 && attempt<maxAttempt){
             attempt++;
             pipe.setX(random.nextInt(800- pipe.getWidth()));
-            pipe.setY(random.nextInt(550-85- pipe.getHeight()));
         }
         if(attempt<maxAttempt) pipes.add(pipe);
     }
@@ -411,7 +411,7 @@ public class EntityController {
         pipes=new LinkedList<>();
         boxes=new LinkedList<>();
         coins=new LinkedList<>();
-        flag=new Flag(-50,0);
+        flag=new Flag(-200,0);
         player=new Player();
         title=new Title(0,0);
         background=new Background(0,0);
