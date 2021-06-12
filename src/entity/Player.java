@@ -94,6 +94,7 @@ public class Player implements Collidable {
         this.isToDown = false;
         this.isToUp = false;
         this.isToRight = false;
+        updateLevel();
     }
 
     /**

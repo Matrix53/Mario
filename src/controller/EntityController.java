@@ -1,6 +1,7 @@
 package controller;
 
 import entity.*;
+import entity.Record;
 import entity.box.Box;
 import entity.box.BoxCoin;
 import entity.box.PowerUp;
@@ -12,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -35,6 +38,7 @@ public class EntityController {
     private final Player player;
     private final Title title;
     private final Background background;
+    private final Record record;
 
     private final Random random;
     private int maxAttempt;
@@ -473,22 +477,28 @@ public class EntityController {
         });
         enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
         gc.drawImage(player.getImage(), player.getX(), player.getY());
+
+        gc.fillText("haha",0,0);
     }
 
-    private EntityController() {
-        enemies = new LinkedList<>();
-        walls = new LinkedList<>();
-        pipes = new LinkedList<>();
-        boxes = new LinkedList<>();
-        coins = new LinkedList<>();
-        flag = new Flag(-200, 0);
-        player = new Player();
-        title = new Title(0, 0);
-        background = new Background(0, 0);
-        random = new Random();
-        maxAttempt = 10;
-        canvas = new Canvas(800, 550);
-        gc = canvas.getGraphicsContext2D();
+    private EntityController(){
+        enemies=new LinkedList<>();
+        walls=new LinkedList<>();
+        pipes=new LinkedList<>();
+        boxes=new LinkedList<>();
+        coins=new LinkedList<>();
+        flag=new Flag(-200,0);
+        player=new Player();
+        title=new Title(0,0);
+        background=new Background(0,0);
+        record=new Record();
+        random=new Random();
+        maxAttempt=10;
+        canvas=new Canvas(800,550);
+        gc=canvas.getGraphicsContext2D();
+        Font font=new Font(30);
+        gc.setFont(font);
+        gc.setFill(Color.WHITE);
     }
 
     /**
