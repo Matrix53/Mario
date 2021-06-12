@@ -2,7 +2,6 @@ package controller;
 
 import entity.Player;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -22,17 +21,19 @@ import java.util.HashSet;
  * @version 1.0
  */
 public class MainController {
-    private final EntityController entityController=EntityController.getInstance();
-    private final LevelController levelController=LevelController.getInstance();
-    private final Group root = new Group(entityController.getCanvas());
-    private final Scene scene = new Scene(root);
-    private final HashSet<KeyCode> input = new HashSet<>();
-    private final Media normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
-    private final Media die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
-    private final MediaPlayer normalPlayer = new MediaPlayer(normal);
-    private final MediaPlayer diePlayer = new MediaPlayer(die);
+    private final EntityController entityController;
+    private final LevelController levelController;
+    private final Group root;
+    private final Scene scene;
+    private final HashSet<KeyCode> input;
+    private final Media normal;
+    private final Media die;
+    private final Media jump;
+    private final MediaPlayer normalPlayer;
+    private final MediaPlayer diePlayer;
+    private final MediaPlayer jumpPlayer;
     private final AnimationTimer timer;
-    private final Player player= entityController.getPlayer();
+    private final Player player;
 
     /**
      * 开始游戏，
@@ -68,6 +69,19 @@ public class MainController {
     }
 
     private MainController() {
+        // 初始化控制器属性
+        entityController=EntityController.getInstance();
+        levelController=LevelController.getInstance();
+        root = new Group(entityController.getCanvas());
+        scene = new Scene(root);
+        input = new HashSet<>();
+        normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
+        die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
+        jump= new Media(new File("assets/sounds/jump.mp3").toURI().toString());
+        normalPlayer = new MediaPlayer(normal);
+        diePlayer = new MediaPlayer(die);
+        jumpPlayer=new MediaPlayer(jump);
+        player= entityController.getPlayer();
         // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
@@ -95,8 +109,6 @@ public class MainController {
                 // 播放跳跃音乐
                 case UP -> {
                     if(!player.isToDown()){
-                        Media jump = new Media(new File("assets/sounds/jump.mp3").toURI().toString());
-                        MediaPlayer jumpPlayer = new MediaPlayer(jump);
                         jumpPlayer.setStartTime(Duration.millis(7));
                         jumpPlayer.play();
                     }
@@ -127,7 +139,7 @@ public class MainController {
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if (diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)) {
-                        Platform.exit();
+                        endGame();
                     }
                 } else {
                     entityController.handleScreenEvent(input);
