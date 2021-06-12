@@ -29,6 +29,7 @@ public class Player implements Collidable {
     private boolean isWin;
     private boolean isDead;
     private int level;
+    private Record record;
 
     /**
      * 玩家的构造方法
@@ -278,6 +279,10 @@ public class Player implements Collidable {
         this.level = level;
     }
 
+    public void setRecord(Record record) {
+        this.record = record;
+    }
+
     /**
      * 玩家升级
      */
@@ -381,6 +386,7 @@ public class Player implements Collidable {
             enemy.remove();
             isToDown = false;
             isToUp = true;
+            record.addScore(5);
         } else {
             if (level == 0) {
                 image[0] = new Image("images/player/marioDead.png");
@@ -413,6 +419,9 @@ public class Player implements Collidable {
         } else {
             if (Math.abs(y - box.getY() - box.getHeight()) <= 10
                     && isToUp) {
+                if(!box.isOpened()){
+                    record.addScore(2);
+                }
                 box.open();
                 isToUp = false;
                 isToDown = true;
@@ -532,6 +541,7 @@ public class Player implements Collidable {
                     && isToUp) {
                 if (level > 0) {
                     wall.setX(-50);
+                    record.addScore(1);
                 }
                 isToUp = false;
                 isToDown = true;
@@ -547,7 +557,6 @@ public class Player implements Collidable {
                 && !isToUp
                 && !isToDown
         ) {
-
             boolean willFall = true;
             int direction = 0;
             if (isToRight) {
@@ -555,7 +564,6 @@ public class Player implements Collidable {
             } else {
                 direction = -1;
             }
-
             for (Wall otherWall : walls) {
                 if (otherWall == wall) {
                     continue;
@@ -575,14 +583,13 @@ public class Player implements Collidable {
                         break;
                     }
                 }
-
                 // be block
                 if (y >= otherWall.getY()
                         && otherWall.getY() + 34 >= y
                         || y + this.getHeight() >= otherWall.getY()
                         && otherWall.getY() + 34 >= y + this.getHeight()
                 ) {
-                    System.out.println("be block");
+//                    System.out.println("be block");
                     if (isToRight
                             && (x + 5 <= otherWall.getX() + 34
                             && x + 5 >= otherWall.getX()
