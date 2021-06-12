@@ -407,7 +407,7 @@ public class EntityController {
         // 处理墙壁的碰撞
         walls.forEach(wall -> {
             if (player.judgeCollision(wall)) {
-                player.hitWall(wall);
+                player.hitWall(wall, walls);
             }
         });
         // 处理硬币的碰撞
