@@ -16,8 +16,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 /**
- * 使用单例模式编写的主控制类，控制其他所有Controller，
- * 享有所有的Media对象，Scene对象以及其它一些全局的对象，
+ * 使用单例模式编写的主控制类，控制其他所有Controller， 享有所有的Media对象，Scene对象以及其它一些全局的对象，
  * 该类中定义了Scene的全局按键绑定，游戏的逐帧处理逻辑
  *
  * @author Matrix53
@@ -29,19 +28,18 @@ public class MainController {
     private final Group root;
     private final Scene scene;
     private final HashSet<KeyCode> input;
-    private final Media normal;
-    private final Media die;
-    private final Media jump;
-    private final MediaPlayer normalPlayer;
-    private final MediaPlayer diePlayer;
-    private final MediaPlayer jumpPlayer;
-    private final AnimationTimer timer;
+    private Media normal;
+    private Media die;
+    private Media jump;
+    private MediaPlayer normalPlayer;
+    private MediaPlayer diePlayer;
+    private MediaPlayer jumpPlayer;
+    private AnimationTimer timer;
     private final Player player;
     private final Record record;
 
     /**
-     * 开始游戏，
-     * 清空玩家之前的输入，并开始对输入进行处理
+     * 开始游戏， 清空玩家之前的输入，并开始对输入进行处理
      */
     public void startGame() {
         input.clear();
@@ -74,14 +72,10 @@ public class MainController {
 
     private MainController() {
         // 初始化控制器属性
-<<<<<<< HEAD
         entityController = EntityController.getInstance();
         levelController = LevelController.getInstance();
-=======
-        entityController=EntityController.getInstance();
-        levelController=LevelController.getInstance();
-        record=entityController.getRecord();
->>>>>>> 87805ea67b4c8d8ef5386090bf730671a61f43c6
+        record = entityController.getRecord();
+        player = entityController.getPlayer();
         root = new Group(entityController.getCanvas());
         scene = new Scene(root);
         input = new HashSet<>();
@@ -89,20 +83,22 @@ public class MainController {
             normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
             die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
             jump = new Media(new File("assets/sounds/jump.mp3").toURI().toString());
-//            normal = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/default.mp3")).toExternalForm());
-//            die = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/die.mp3")).toExternalForm());
-//            jump = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/jump.mp3")).toExternalForm());
+            // normal = new
+            // Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/default.mp3")).toExternalForm());
+            // die = new
+            // Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/die.mp3")).toExternalForm());
+            // jump = new
+            // Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/jump.mp3")).toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
 
-       System.out.println(new File("../sounds/default.mp3").toURI().toString());
+        System.out.println(new File("../sounds/default.mp3").toURI().toString());
         normalPlayer = new MediaPlayer(normal);
         diePlayer = new MediaPlayer(die);
         jumpPlayer = new MediaPlayer(jump);
 
-        player = entityController.getPlayer();
         // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
