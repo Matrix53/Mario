@@ -52,7 +52,7 @@ abstract public class Level {
      * 开始当前关卡，除了关卡控制器外，
      * 其他任何位置的代码都不应该调用该方法
      */
-    public final void start(){
+    public void start(){
         controller.clearScreen();
         controller.getPlayer().reset();
         setInitPos();

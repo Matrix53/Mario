@@ -113,6 +113,6 @@ public class Level1 extends Level{
      */
     @Override
     public void setInitPos(){
-
+        controller.setPlayerPos(100,0);
     }
 }

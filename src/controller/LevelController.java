@@ -10,6 +10,7 @@ import level.*;
 public class LevelController {
     private final Level[] levels;
     private int levelPointer;
+    private int maxLevel;
 
     /**
      * 开始某一个指定的关卡，
@@ -42,14 +43,30 @@ public class LevelController {
         }
     }
 
+    /**
+     * 开始第一关，也就是游戏的序章
+     */
+    public void startFirstLevel(){
+        levelPointer=0;
+        levels[levelPointer].start();
+    }
+
+    /**
+     * 开始最后一关，也就是游戏的终章
+     */
+    public void startLastLevel(){
+        levelPointer=maxLevel-1;
+        levels[levelPointer].start();
+    }
+
     private LevelController(){
-        levels=new Level[5];
+        levels=new Level[4];
         levels[0]=new StartLevel();
         levels[1]=new Level1();
         levels[2]=new Level2();
-        levels[3]=new Level3();
-        levels[4]=new EndLevel();
+        levels[3]=new EndLevel();
         levelPointer=0;
+        maxLevel=4;
     }
 
     /**

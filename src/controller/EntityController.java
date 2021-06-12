@@ -10,6 +10,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -42,7 +44,7 @@ public class EntityController {
      * 对Canvas的按键进行监听，添加事件处理方法
      * @param handler 待添加的事件处理方法
      */
-    public void addKeyEvent(EventHandler handler){
+    public void addKeyEvent(EventHandler<KeyEvent> handler){
         canvas.setOnKeyReleased(handler);
     }
 
@@ -50,7 +52,7 @@ public class EntityController {
      * 对Canvas的鼠标点击进行监听，添加事件处理方法
      * @param handler 待添加的事件处理方法
      */
-    public void addMouseEvent(EventHandler handler){
+    public void addMouseEvent(EventHandler<MouseEvent> handler){
         canvas.setOnMouseReleased(handler);
     }
 

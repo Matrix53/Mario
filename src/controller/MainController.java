@@ -42,7 +42,7 @@ public class MainController {
     public void startGame(){
         input.clear();
         timer.start();
-        levelController.startLevel(1);
+        levelController.startLevel(0);
     }
 
     /**
@@ -130,16 +130,15 @@ public class MainController {
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if(diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
-                        if(levelController.startNextLevel()==false){
-                            endGame();
-                        }
+                        levelController.startNextLevel();
                     };
                 } else if (player.isDead()) {
                     normalPlayer.setMute(true);
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if (diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)) {
-                        endGame();
+                        levelController.startLastLevel();
+                        return;
                     }
                 } else {
                     entityController.handleScreenEvent(input);
