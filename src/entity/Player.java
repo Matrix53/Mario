@@ -5,6 +5,7 @@ import entity.box.PowerUp;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -83,11 +84,11 @@ public class Player implements Collidable {
     /**
      * 重置玩家的属性，以便开始新的关卡
      */
-    public void reset(){
+    public void reset() {
         this.floor = (int) (550 - 85 - image[0].getHeight());
         this.animateTimer = 0;
         this.jumpTimer = 0;
-        this.moveLength=5;
+        this.moveLength = 5;
         this.isWin = false;
         this.isDead = false;
         this.isToDown = false;
@@ -423,15 +424,49 @@ public class Player implements Collidable {
      *
      * @param wall 墙的对象
      */
-    public void hitWall(Wall wall) {
+    public void hitWall(Wall wall, Collection<Wall> walls) {
+// 我试图检测有没有方块在人的左边，阻止人从方块中间掉下去，但似乎没有用？
+//        boolean blockedH = false;
+//        for (Wall otherWall : walls) {
+//            // be block
+//            if (y >= otherWall.getY()
+//                    && otherWall.getY() + 34 >= y
+//                    || y + this.getHeight() >= otherWall.getY()
+//                    && otherWall.getY() + 34 >= y + this.getHeight()
+//            ) {
+//                System.out.println("be block1");
+//                if (isToRight
+//                        && (x + 5 <= otherWall.getX() + 34
+//                        && x + 5 >= otherWall.getX()
+//                        || x + 5 + this.getWidth() <= otherWall.getX() + 34
+//                        && x + 5 + this.getWidth() >= otherWall.getX())
+//                ) {
+//                    blockedH = true;
+////                    x = otherWall.getX() - this.getWidth();
+//                    System.out.println("right1: ");
+//                    break;
+//                } else if (!isToRight
+//                        && (x - 5 <= otherWall.getX() + 34
+//                        && x - 5 >= otherWall.getX()
+//                        || x - 5 + this.getWidth() <= otherWall.getX() + 34
+//                        && x - 5 + this.getWidth() >= otherWall.getX())
+//                ) {
+//                    blockedH = true;
+//                    System.out.println("left1");
+//                    break;
+//                }
+//            }
+//        }
+
         if (Math.abs(y + getHeight() - wall.getY()) < 10) {
             floor = wall.getY() - getHeight();
             y = floor;
         } else if (Math.abs(x + getWidth() - wall.getX()) <= 10) {
             x -= moveLength;
         } else if (Math.abs(x - wall.getX() - wall.getWidth()) <= 10) {
-            x += moveLength;
+                x += moveLength;
         } else {
+            // break the wall
             if (Math.abs(y - wall.getY() - wall.getHeight()) <= 10
                     && isToUp) {
                 if (level > 0) {
@@ -441,16 +476,80 @@ public class Player implements Collidable {
                 isToDown = true;
             } else if (x <= wall.getX()) {
                 x -= moveLength;
-            } else {
-                x += moveLength;
+            } else if (x >= wall.getX() + wall.getWidth()  ) {
+
+                    x += moveLength;
             }
         }
         if ((Math.abs(x - wall.getX() - wall.getWidth()) <= 5
                 || Math.abs(x + getWidth() - wall.getX()) <= 5)
                 && !isToUp
-                && !isToDown) {
-            floor = 550 - 85 - getHeight();
-            isToDown = true;
+                && !isToDown
+        ) {
+
+            boolean willFall = true;
+            int direction = 0;
+            if (isToRight) {
+                direction = 1;
+            } else {
+                direction = -1;
+            }
+
+            for (Wall otherWall : walls) {
+                if (otherWall == wall) {
+                    continue;
+                }
+                // can go through
+                if (wall.getY() == otherWall.getY()
+                ) {
+                    if (isToRight
+                            && x + 5 <= otherWall.getX() + 34
+                            && x + 5 >= otherWall.getX()) {
+                        willFall = false;
+                        break;
+                    } else if (!isToRight
+                            && x - 5 <= otherWall.getX() + 34
+                            && x - 5 >= otherWall.getX()) {
+                        willFall = false;
+                        break;
+                    }
+                }
+
+                // be block
+                if (y >= otherWall.getY()
+                        && otherWall.getY() + 34 >= y
+                        || y + this.getHeight() >= otherWall.getY()
+                        && otherWall.getY() + 34 >= y + this.getHeight()
+                ) {
+                    System.out.println("be block");
+                    if (isToRight
+                            && (x + 5 <= otherWall.getX() + 34
+                            && x + 5 >= otherWall.getX()
+                            || x + 5 + this.getWidth() <= otherWall.getX() + 34
+                            && x + 5 + this.getWidth() >= otherWall.getX())
+                    ) {
+                        willFall = false;
+                        isToDown = false;
+//                        x = wall.getX() + wall.getWidth() - this.getWidth();
+                        break;
+                    } else if (!isToRight
+                            && (x - 5 <= otherWall.getX() + 34
+                            && x - 5 >= otherWall.getX()
+                            || x - 5 + this.getWidth() <= otherWall.getX() + 34
+                            && x - 5 + this.getWidth() >= otherWall.getX())
+                    ) {
+                        willFall = false;
+                        isToDown = false;
+//                        x = wall.getX();
+                        break;
+                    }
+                }
+            }
+            if (willFall) {
+                floor = 550 - 85 - getHeight();
+                isToDown = true;
+            }
+
         }
     }
 }

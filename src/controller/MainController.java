@@ -118,7 +118,7 @@ public class MainController {
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if(diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
-                        if(levelController.startNextLevel()==false){
+                        if(!levelController.startNextLevel()){
                             endGame();
                         }
                     };
