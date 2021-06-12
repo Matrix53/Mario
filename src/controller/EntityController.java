@@ -20,6 +20,7 @@ import java.util.Random;
 /**
  * 以单例模式编写的实体控制器，实体控制器控制所有的实体，
  * 可对实体间发生的碰撞事件等事件进行处理，并使用Canvas将实体绘制在屏幕上
+ *
  * @author Matrix53
  * @version 1.0
  */
@@ -42,24 +43,26 @@ public class EntityController {
 
     /**
      * 对Canvas的按键进行监听，添加事件处理方法
+     *
      * @param handler 待添加的事件处理方法
      */
-    public void addKeyEvent(EventHandler<KeyEvent> handler){
+    public void addKeyEvent(EventHandler<KeyEvent> handler) {
         canvas.setOnKeyReleased(handler);
     }
 
     /**
      * 对Canvas的鼠标点击进行监听，添加事件处理方法
+     *
      * @param handler 待添加的事件处理方法
      */
-    public void addMouseEvent(EventHandler<MouseEvent> handler){
+    public void addMouseEvent(EventHandler<MouseEvent> handler) {
         canvas.setOnMouseReleased(handler);
     }
 
     /**
      * 清除画面中所有实体，但不进行画面的重新绘制
      */
-    public void clearScreen(){
+    public void clearScreen() {
         enemies.clear();
         walls.clear();
         pipes.clear();
@@ -67,9 +70,9 @@ public class EntityController {
         coins.clear();
     }
 
-    private boolean isPosLegal(Collidable entity){
-        return entity.getX()+ entity.getWidth()<=800
-                && entity.getY()+ entity.getHeight()<=550-85
+    private boolean isPosLegal(Collidable entity) {
+        return entity.getX() + entity.getWidth() <= 800
+                && entity.getY() + entity.getHeight() <= 550 - 85
                 && !entity.judgeCollision(enemies)
                 && !entity.judgeCollision(walls)
                 && !entity.judgeCollision(pipes)
@@ -81,16 +84,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个敌人
      */
-    public void addEnemy(){
-        Enemy enemy=new Enemy();
-        int attempt=0;
-        while(!isPosLegal(enemy)
-                && attempt<maxAttempt){
+    public void addEnemy() {
+        Enemy enemy = new Enemy();
+        int attempt = 0;
+        while (!isPosLegal(enemy)
+                && attempt < maxAttempt) {
             attempt++;
-            enemy.setX(random.nextInt(800- enemy.getWidth()));
-            enemy.setY(random.nextInt(550-85- enemy.getHeight()));
+            enemy.setX(random.nextInt(800 - enemy.getWidth()));
+            enemy.setY(random.nextInt(550 - 85 - enemy.getHeight()));
         }
-        if(attempt<maxAttempt) enemies.add(enemy);
+        if (attempt < maxAttempt) enemies.add(enemy);
     }
 
     /**
@@ -109,16 +112,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个盒子
      */
-    public void addBox(){
-        Box box=new Box(800,0);
-        int attempt=0;
-        while(!isPosLegal(box)
-                && attempt<maxAttempt){
+    public void addBox() {
+        Box box = new Box(800, 0);
+        int attempt = 0;
+        while (!isPosLegal(box)
+                && attempt < maxAttempt) {
             attempt++;
-            box.setX(random.nextInt(800- box.getWidth()));
-            box.setY(random.nextInt(550-85- box.getHeight()));
+            box.setX(random.nextInt(800 - box.getWidth()));
+            box.setY(random.nextInt(550 - 85 - box.getHeight()));
         }
-        if(attempt<maxAttempt) boxes.add(box);
+        if (attempt < maxAttempt) boxes.add(box);
     }
 
     /**
@@ -149,16 +152,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个硬币
      */
-    public void addCoin(){
-        Coin coin=new Coin(800,0);
-        int attempt=0;
-        while(!isPosLegal(coin)
-                && attempt<maxAttempt){
+    public void addCoin() {
+        Coin coin = new Coin(800, 0);
+        int attempt = 0;
+        while (!isPosLegal(coin)
+                && attempt < maxAttempt) {
             attempt++;
-            coin.setX(random.nextInt(800- coin.getWidth()));
-            coin.setY(random.nextInt(550-85- coin.getHeight()));
+            coin.setX(random.nextInt(800 - coin.getWidth()));
+            coin.setY(random.nextInt(550 - 85 - coin.getHeight()));
         }
-        if(attempt<maxAttempt) coins.add(coin);
+        if (attempt < maxAttempt) coins.add(coin);
     }
 
     /**
@@ -176,16 +179,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个大管道
      */
-    public void addBigPipe(){
-        Image image=new Image("images/pipe/pipeBig.png");
-        Pipe pipe=new Pipe(800,image);
-        int attempt=0;
-        while(!isPosLegal(pipe)
-                && attempt<maxAttempt){
+    public void addBigPipe() {
+        Image image = new Image("images/pipe/pipeBig.png");
+        Pipe pipe = new Pipe(800, image);
+        int attempt = 0;
+        while (!isPosLegal(pipe)
+                && attempt < maxAttempt) {
             attempt++;
-            pipe.setX(random.nextInt(800- pipe.getWidth()));
+            pipe.setX(random.nextInt(800 - pipe.getWidth()));
         }
-        if(attempt<maxAttempt) pipes.add(pipe);
+        if (attempt < maxAttempt) pipes.add(pipe);
     }
 
     /**
@@ -202,16 +205,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个小管道
      */
-    public void addSmallPipe(){
-        Image image=new Image("images/pipe/pipeSmall.png");
-        Pipe pipe=new Pipe(800,image);
-        int attempt=0;
-        while(!isPosLegal(pipe)
-                && attempt<maxAttempt){
+    public void addSmallPipe() {
+        Image image = new Image("images/pipe/pipeSmall.png");
+        Pipe pipe = new Pipe(800, image);
+        int attempt = 0;
+        while (!isPosLegal(pipe)
+                && attempt < maxAttempt) {
             attempt++;
-            pipe.setX(random.nextInt(800- pipe.getWidth()));
+            pipe.setX(random.nextInt(800 - pipe.getWidth()));
         }
-        if(attempt<maxAttempt) pipes.add(pipe);
+        if (attempt < maxAttempt) pipes.add(pipe);
     }
 
     /**
@@ -228,16 +231,16 @@ public class EntityController {
     /**
      * 在当前屏幕的随机位置增加一个砖块
      */
-    public void addWall(){
-        Wall wall=new Wall(800,0);
-        int attempt=0;
-        while(!isPosLegal(wall)
-                && attempt<maxAttempt){
+    public void addWall() {
+        Wall wall = new Wall(800, 0);
+        int attempt = 0;
+        while (!isPosLegal(wall)
+                && attempt < maxAttempt) {
             attempt++;
-            wall.setX(random.nextInt(800- wall.getWidth()));
-            wall.setY(random.nextInt(550-85- wall.getHeight()));
+            wall.setX(random.nextInt(800 - wall.getWidth()));
+            wall.setY(random.nextInt(550 - 85 - wall.getHeight()));
         }
-        if(attempt<maxAttempt) walls.add(wall);
+        if (attempt < maxAttempt) walls.add(wall);
     }
 
     /**
@@ -279,7 +282,7 @@ public class EntityController {
      *
      * @param x 标题的x坐标
      */
-    public void setTitlePos(int x){
+    public void setTitlePos(int x) {
         title.setX(x);
         title.setY(0);
     }
@@ -287,6 +290,7 @@ public class EntityController {
     /**
      * 返回随机添加实体时的最大尝试次数，
      * 当尝试次数超过这个值时不会添加实体
+     *
      * @return 添加实体时的最大尝试次数
      */
     public int getMaxAttempt() {
@@ -296,6 +300,7 @@ public class EntityController {
     /**
      * 设置随机添加实体时的最大尝试次数，
      * 当尝试次数超过这个值时不会添加实体
+     *
      * @param maxAttempt 添加实体时的最大尝试次数
      */
     public void setMaxAttempt(int maxAttempt) {
@@ -304,6 +309,7 @@ public class EntityController {
 
     /**
      * 返回实体控制器控制的Canvas
+     *
      * @return 当前实例控制的Canvas
      */
     public Canvas getCanvas() {
@@ -312,6 +318,7 @@ public class EntityController {
 
     /**
      * 返回实体控制器控制的GraphicsContext
+     *
      * @return 当前实例控制的GraphicsContext
      */
     public GraphicsContext getGc() {
@@ -320,6 +327,7 @@ public class EntityController {
 
     /**
      * 返回当前的Player对象
+     *
      * @return Player对象
      */
     public Player getPlayer() {
@@ -329,16 +337,24 @@ public class EntityController {
     /**
      * 根据人物位置来进行屏幕的移动
      */
-    public void moveScreen(){
+    public void moveScreen() {
         if (player.getX() >= 500) {
             int moveLength = player.getMoveLength();
             coins.forEach(coin -> coin.setX(coin.getX() - moveLength));
             walls.forEach(wall -> wall.setX(wall.getX() - moveLength));
             pipes.forEach(pipe -> pipe.setX(pipe.getX() - moveLength));
             enemies.forEach(enemy -> enemy.setX(enemy.getX() - moveLength));
-            boxes.forEach(box -> box.setX(box.getX() - moveLength));
+            boxes.forEach(box -> {
+                box.setX(box.getX() - moveLength);
+                if (box.getCoin() != null) {
+                    box.getCoin().setX(box.getCoin().getX() - moveLength);
+                }
+                if (box.getPowerUp() != null) {
+                    box.getPowerUp().setX(box.getPowerUp().getX() - moveLength);
+                }
+            });
             title.setX(title.getX() - moveLength);
-            flag.setX(flag.getX()-moveLength);
+            flag.setX(flag.getX() - moveLength);
             player.setX(500 - moveLength);
             background.move(moveLength);
         }
@@ -346,9 +362,10 @@ public class EntityController {
 
     /**
      * 对屏幕产生的碰撞事件和玩家的输入进行处理
+     *
      * @param input 玩家的输入
      */
-    public void handleScreenEvent(HashSet<KeyCode> input){
+    public void handleScreenEvent(HashSet<KeyCode> input) {
         // 处理旗子的碰撞
         if (player.judgeCollision(flag)) {
             player.hitFlag();
@@ -437,10 +454,10 @@ public class EntityController {
     /**
      * 重新绘制屏幕
      */
-    public void refreshScreen(){
+    public void refreshScreen() {
         gc.drawImage(background.getImage(), background.getX(), background.getY());
         gc.drawImage(title.getImage(), title.getX(), title.getY());
-        gc.drawImage(flag.getImage(),flag.getX(), flag.getY());
+        gc.drawImage(flag.getImage(), flag.getX(), flag.getY());
         coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(), coin.getY()));
         pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
         walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
@@ -458,40 +475,41 @@ public class EntityController {
         gc.drawImage(player.getImage(), player.getX(), player.getY());
     }
 
-    private EntityController(){
-        enemies=new LinkedList<>();
-        walls=new LinkedList<>();
-        pipes=new LinkedList<>();
-        boxes=new LinkedList<>();
-        coins=new LinkedList<>();
-        flag=new Flag(-200,0);
-        player=new Player();
-        title=new Title(0,0);
-        background=new Background(0,0);
-        random=new Random();
-        maxAttempt=10;
-        canvas=new Canvas(800,550);
-        gc=canvas.getGraphicsContext2D();
+    private EntityController() {
+        enemies = new LinkedList<>();
+        walls = new LinkedList<>();
+        pipes = new LinkedList<>();
+        boxes = new LinkedList<>();
+        coins = new LinkedList<>();
+        flag = new Flag(-200, 0);
+        player = new Player();
+        title = new Title(0, 0);
+        background = new Background(0, 0);
+        random = new Random();
+        maxAttempt = 10;
+        canvas = new Canvas(800, 550);
+        gc = canvas.getGraphicsContext2D();
     }
 
     /**
      * 得到当前的实体控制器实例
+     *
      * @return
      */
-    public static EntityController getInstance(){
+    public static EntityController getInstance() {
         return Singleton.INSTANCE.getInstance();
     }
 
-    private enum Singleton{
+    private enum Singleton {
         INSTANCE;
 
         private final EntityController instance;
 
-        Singleton(){
-            instance=new EntityController();
+        Singleton() {
+            instance = new EntityController();
         }
 
-        private EntityController getInstance(){
+        private EntityController getInstance() {
             return instance;
         }
     }

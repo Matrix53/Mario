@@ -521,7 +521,7 @@ public class Player implements Collidable {
                         || y + this.getHeight() >= otherWall.getY()
                         && otherWall.getY() + 34 >= y + this.getHeight()
                 ) {
-                    System.out.println("be block");
+//                    System.out.println("be block");
                     if (isToRight
                             && (x + 5 <= otherWall.getX() + 34
                             && x + 5 >= otherWall.getX()

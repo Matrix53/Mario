@@ -64,6 +64,13 @@ public class PowerUp implements Collidable {
     }
 
     /**
+     * 设置大蘑菇的x坐标
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
      * 得到蘑菇的y坐标
      *
      * @return 蘑菇的y坐标
@@ -102,6 +109,7 @@ public class PowerUp implements Collidable {
 
     /**
      * 设置蘑菇的下落状态
+     *
      * @param falling 蘑菇是否正在下落
      */
     public void setFalling(boolean falling) {

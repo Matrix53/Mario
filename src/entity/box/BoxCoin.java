@@ -43,6 +43,15 @@ public class BoxCoin implements Collidable {
     }
 
     /**
+     * 设置BoxCoin的x坐标
+     *
+     * @param x 目标x坐标
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
      * 返回实体的y坐标
      *
      * @return 实体的y坐标
