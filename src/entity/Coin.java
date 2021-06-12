@@ -87,6 +87,14 @@ public class Coin implements Collidable {
         this.y = y;
     }
 
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
     /**
      * 硬币的动画
      */

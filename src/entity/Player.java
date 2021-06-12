@@ -218,6 +218,66 @@ public class Player implements Collidable {
         isWin = win;
     }
 
+    public int getFloor() {
+        return floor;
+    }
+
+    public boolean isToUp() {
+        return isToUp;
+    }
+
+    public void setToUp(boolean toUp) {
+        isToUp = toUp;
+    }
+
+    public void setToDown(boolean toDown) {
+        isToDown = toDown;
+    }
+
+    public boolean isToRight() {
+        return isToRight;
+    }
+
+    public void setToRight(boolean toRight) {
+        isToRight = toRight;
+    }
+
+    public void setMoveLength(int moveLength) {
+        this.moveLength = moveLength;
+    }
+
+    public int getJumpHeight() {
+        return jumpHeight;
+    }
+
+    public int getAnimateTimer() {
+        return animateTimer;
+    }
+
+    public void setAnimateTimer(int animateTimer) {
+        this.animateTimer = animateTimer;
+    }
+
+    public int getJumpTimer() {
+        return jumpTimer;
+    }
+
+    public void setJumpTimer(int jumpTimer) {
+        this.jumpTimer = jumpTimer;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     /**
      * 玩家升级
      */

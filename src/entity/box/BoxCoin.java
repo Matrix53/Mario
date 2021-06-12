@@ -90,6 +90,50 @@ public class BoxCoin implements Collidable {
         return (int) image[0].getWidth();
     }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setImage(Image[] image) {
+        this.image = image;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    public int getJumpHeight() {
+        return jumpHeight;
+    }
+
+    public void setJumpHeight(int jumpHeight) {
+        this.jumpHeight = jumpHeight;
+    }
+
+    public int getJumping() {
+        return jumping;
+    }
+
+    public void setJumping(int jumping) {
+        this.jumping = jumping;
+    }
+
+    public int getFalling() {
+        return falling;
+    }
+
+    public void setFalling(int falling) {
+        this.falling = falling;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
     /**
      * 实体显示的动画
      */

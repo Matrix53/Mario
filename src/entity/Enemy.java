@@ -186,6 +186,26 @@ public class Enemy implements Collidable {
         this.floor = floor;
     }
 
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public int getRemoveTimer() {
+        return removeTimer;
+    }
+
+    public void setRemoveTimer(int removeTimer) {
+        this.removeTimer = removeTimer;
+    }
+
+    public int getAnimateTimer() {
+        return animateTimer;
+    }
+
+    public void setAnimateTimer(int animateTimer) {
+        this.animateTimer = animateTimer;
+    }
+
     /**
      * 反转敌人的运动方向
      */

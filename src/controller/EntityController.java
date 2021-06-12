@@ -13,8 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -461,7 +459,8 @@ public class EntityController {
     public void refreshScreen() {
         gc.drawImage(background.getImage(), background.getX(), background.getY());
         gc.drawImage(title.getImage(), title.getX(), title.getY());
-        gc.drawImage(flag.getImage(), flag.getX(), flag.getY());
+        record.drawNormalScore();
+        gc.drawImage(flag.getImage(),flag.getX(), flag.getY());
         coins.forEach(coin -> gc.drawImage(coin.getImage(), coin.getX(), coin.getY()));
         pipes.forEach(pipe -> gc.drawImage(pipe.getImage(), pipe.getX(), pipe.getY()));
         walls.forEach(wall -> gc.drawImage(wall.getImage(), wall.getX(), wall.getY()));
@@ -477,8 +476,6 @@ public class EntityController {
         });
         enemies.forEach(enemy -> gc.drawImage(enemy.getImage(), enemy.getX(), enemy.getY()));
         gc.drawImage(player.getImage(), player.getX(), player.getY());
-
-        gc.fillText("haha",0,0);
     }
 
     private EntityController(){
@@ -491,14 +488,11 @@ public class EntityController {
         player=new Player();
         title=new Title(0,0);
         background=new Background(0,0);
-        record=new Record();
         random=new Random();
         maxAttempt=10;
         canvas=new Canvas(800,550);
         gc=canvas.getGraphicsContext2D();
-        Font font=new Font(30);
-        gc.setFont(font);
-        gc.setFill(Color.WHITE);
+        record=new Record(gc);
     }
 
     /**
