@@ -68,8 +68,8 @@ public class EntityController {
     }
 
     private boolean isPosLegal(Collidable entity){
-        return entity.getX()+ entity.getWidth()<800
-                && entity.getY()+ entity.getHeight()<550-85
+        return entity.getX()+ entity.getWidth()<=800
+                && entity.getY()+ entity.getHeight()<=550-85
                 && !entity.judgeCollision(enemies)
                 && !entity.judgeCollision(walls)
                 && !entity.judgeCollision(pipes)
