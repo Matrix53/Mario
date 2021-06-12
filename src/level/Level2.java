@@ -77,7 +77,7 @@ public class Level2 extends Level {
         controller.addWall(1300 + 34 * 5, 300);
         controller.addWall(1300 + 34 * 6, 300);
         controller.addWall(1300 + 34 * 7, 300);
-        controller.addEnemy(1300 + 34 * 8, 0);
+//        controller.addEnemy(1300 + 34 * 15, 0);
 //        controller.addEnemy(1300+34*6,301);
         controller.addEnemy(1300 + 34 * 6, 0);
         //page3
