@@ -8,7 +8,7 @@ import entity.box.PropType;
  * @author luxia
  * @version 1.0
  */
-public class Level1 extends Level{
+public class Level1 extends Level {
     private int intro(int startPoint) {
         controller.addEnemy(startPoint, 0);
         controller.addWall(startPoint + 100, 120);
@@ -58,7 +58,7 @@ public class Level1 extends Level{
 
     private int breakTheWall(int startPoint) {
         // you can break the wall
-        int interval = 80;
+        int interval = 34;
         int boxHeight = 34;
         controller.addWall(startPoint, 80);
         controller.addBox(startPoint, 80 + boxHeight);
@@ -66,9 +66,12 @@ public class Level1 extends Level{
         controller.addBox(startPoint + boxHeight + interval, 80 + boxHeight);
         controller.addWall(startPoint + boxHeight * 2 + interval * 2, 80);
         controller.addBox(startPoint + boxHeight * 2 + interval * 2, 80 + boxHeight);
-
-        controller.addBox(startPoint + 34 + interval, 80 + boxHeight + interval, PropType.POWERUP);
-        controller.addWall(startPoint + 34 + interval, 80 + 2 * boxHeight + interval);
+        controller.addWall(startPoint + boxHeight, 80);
+        controller.addWall(startPoint + boxHeight, 80 + boxHeight);
+        controller.addBox(startPoint + 34 + interval, 80 + boxHeight*2 + interval, PropType.POWERUP);
+        controller.addWall(startPoint + 34 + interval, 80 + 3 * boxHeight + interval);
+        controller.addWall(startPoint + boxHeight * 2 + interval, 80);
+        controller.addWall(startPoint + boxHeight * 2 + interval, 80 + boxHeight);
         return boxHeight * 2 + interval * 2 + 200;
     }
 
@@ -112,7 +115,7 @@ public class Level1 extends Level{
      * 第一关设置的玩家，旗子，标题的初始位置
      */
     @Override
-    public void setInitPos(){
+    public void setInitPos() {
 
     }
 }
