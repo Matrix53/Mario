@@ -203,7 +203,7 @@ public class EntityController {
      * 在当前屏幕的随机位置增加一个小管道
      */
     public void addSmallPipe(){
-        Image image=new Image("imagees/pipe/pipeSmall.png");
+        Image image=new Image("images/pipe/pipeSmall.png");
         Pipe pipe=new Pipe(800,image);
         int attempt=0;
         while(!isPosLegal(pipe)
