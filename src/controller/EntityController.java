@@ -336,6 +336,10 @@ public class EntityController {
         return player;
     }
 
+    /**
+     * 返回当前的Record对象
+     * @return Record对象
+     */
     public Record getRecord() {
         return record;
     }
@@ -502,7 +506,7 @@ public class EntityController {
     /**
      * 得到当前的实体控制器实例
      *
-     * @return
+     * @return 实体控制器实例
      */
     public static EntityController getInstance() {
         return Singleton.INSTANCE.getInstance();

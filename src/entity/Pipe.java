@@ -15,7 +15,7 @@ public class Pipe implements Collidable {
     private final Image image;
 
     /**
-     * 管道的构造
+     * 管道的构造方法
      *
      * @param x     管道的x坐标
      * @param image 管道的图片
@@ -55,6 +55,10 @@ public class Pipe implements Collidable {
         return y;
     }
 
+    /**
+     * 设置管道的y坐标
+     * @param y 管道的y坐标
+     */
     public void setY(int y){
         this.y=y;
     }

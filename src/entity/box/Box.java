@@ -190,18 +190,34 @@ public class Box implements Collidable {
         this.isOpened = true;
     }
 
+    /**
+     * 得到盒子正在使用的图片
+     * @return 正在使用的图片
+     */
     public Image getUsedImage() {
         return usedImage;
     }
 
+    /**
+     * 设置盒子的打开状态
+     * @param opened 盒子的打开状态
+     */
     public void setOpened(boolean opened) {
         isOpened = opened;
     }
 
+    /**
+     * 得到当前盒子的计时器
+     * @return 盒子的计时器
+     */
     public int getTimer() {
         return timer;
     }
 
+    /**
+     * 设置盒子的计时器计数
+     * @param timer 计时器计数
+     */
     public void setTimer(int timer) {
         this.timer = timer;
     }

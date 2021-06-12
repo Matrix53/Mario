@@ -64,6 +64,10 @@ public class Background {
         return image;
     }
 
+    /**
+     * 设置背景图片
+     * @param image 背景图片
+     */
     public void setImage(Image image) {
         this.image = image;
     }

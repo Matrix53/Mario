@@ -186,22 +186,42 @@ public class Enemy implements Collidable {
         this.floor = floor;
     }
 
+    /**
+     * 设置敌人的死亡状态
+     * @param dead 敌人的死亡状态
+     */
     public void setDead(boolean dead) {
         isDead = dead;
     }
 
+    /**
+     * 得到当前敌人的移除计时器
+     * @return 移除计时器
+     */
     public int getRemoveTimer() {
         return removeTimer;
     }
 
+    /**
+     * 设置敌人的移除计时器的计数
+     * @param removeTimer 移除计时器的计数
+     */
     public void setRemoveTimer(int removeTimer) {
         this.removeTimer = removeTimer;
     }
 
+    /**
+     * 得到敌人的动画计时器的计数
+     * @return 动画计时器的计数
+     */
     public int getAnimateTimer() {
         return animateTimer;
     }
 
+    /**
+     * 设置敌人的动画计时器
+     * @param animateTimer 动画计时器的计数
+     */
     public void setAnimateTimer(int animateTimer) {
         this.animateTimer = animateTimer;
     }

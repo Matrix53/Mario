@@ -219,66 +219,130 @@ public class Player implements Collidable {
         isWin = win;
     }
 
+    /**
+     * 得到当前能够到达的最低处
+     * @return 当前能够到达的最低处
+     */
     public int getFloor() {
         return floor;
     }
 
+    /**
+     * 人物是否在向上跳
+     * @return 是否向上跳
+     */
     public boolean isToUp() {
         return isToUp;
     }
 
+    /**
+     * 设置人物的跳跃状态
+     * @param toUp 是否在向上跳
+     */
     public void setToUp(boolean toUp) {
         isToUp = toUp;
     }
 
+    /**
+     * 设置人物的条约状态
+     * @param toDown 是否在下落
+     */
     public void setToDown(boolean toDown) {
         isToDown = toDown;
     }
 
+    /**
+     * 得到人物的水平状态
+     * @return 人物是否在向右走
+     */
     public boolean isToRight() {
         return isToRight;
     }
 
+    /**
+     * 设置人物的水平状态
+     * @param toRight 人物是否向右走
+     */
     public void setToRight(boolean toRight) {
         isToRight = toRight;
     }
 
+    /**
+     * 设置人物的水平移动步长
+     * @param moveLength 水平移动步长
+     */
     public void setMoveLength(int moveLength) {
         this.moveLength = moveLength;
     }
 
+    /**
+     * 得到当前人物的跳跃高度
+     * @return 当前人物的跳跃高度
+     */
     public int getJumpHeight() {
         return jumpHeight;
     }
 
+    /**
+     * 得到人物的动画计时器的计数
+     * @return 动画计时器的计数
+     */
     public int getAnimateTimer() {
         return animateTimer;
     }
 
+    /**
+     * 设置人物的动画计时器的计数
+     * @param animateTimer 动画计时器的计数
+     */
     public void setAnimateTimer(int animateTimer) {
         this.animateTimer = animateTimer;
     }
 
+    /**
+     * 得到人物的跳跃计时器的计数
+     * @return 跳跃计时器的计数
+     */
     public int getJumpTimer() {
         return jumpTimer;
     }
 
+    /**
+     * 设置人物的跳跃计时器的计数
+     * @param jumpTimer 跳跃计时器的计数
+     */
     public void setJumpTimer(int jumpTimer) {
         this.jumpTimer = jumpTimer;
     }
 
+    /**
+     * 设置人物是否死亡
+     * @param dead 人物是否已经死亡
+     */
     public void setDead(boolean dead) {
         isDead = dead;
     }
 
+    /**
+     * 得到当前的人物等级
+     * @return 人物等级
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * 设置当前的人物等级
+     * @param level 人物等级
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    /**
+     * 设置人物的计分板
+     * @param record 计分板
+     */
     public void setRecord(Record record) {
         this.record = record;
     }
