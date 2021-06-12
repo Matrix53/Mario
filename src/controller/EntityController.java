@@ -15,6 +15,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * 以单例模式编写的实体控制器，实体控制器控制所有的实体，
+ * 可对实体间发生的碰撞事件等事件进行处理，并使用Canvas将实体绘制在屏幕上
+ * @author Matrix53
+ * @version 1.0
+ */
 public class EntityController {
     private final LinkedList<Enemy> enemies;
     private final LinkedList<Wall> walls;
@@ -32,8 +38,20 @@ public class EntityController {
     private final Canvas canvas;
     private final GraphicsContext gc;
 
+    /**
+     * 对Canvas的按键进行监听，添加事件处理方法
+     * @param handler 待添加的事件处理方法
+     */
     public void addKeyEvent(EventHandler handler){
         canvas.setOnKeyReleased(handler);
+    }
+
+    /**
+     * 对Canvas的鼠标点击进行监听，添加事件处理方法
+     * @param handler 待添加的事件处理方法
+     */
+    public void addMouseEvent(EventHandler handler){
+        canvas.setOnMouseReleased(handler);
     }
 
     /**
@@ -264,26 +282,51 @@ public class EntityController {
         title.setY(0);
     }
 
+    /**
+     * 返回随机添加实体时的最大尝试次数，
+     * 当尝试次数超过这个值时不会添加实体
+     * @return 添加实体时的最大尝试次数
+     */
     public int getMaxAttempt() {
         return maxAttempt;
     }
 
+    /**
+     * 设置随机添加实体时的最大尝试次数，
+     * 当尝试次数超过这个值时不会添加实体
+     * @param maxAttempt 添加实体时的最大尝试次数
+     */
     public void setMaxAttempt(int maxAttempt) {
         this.maxAttempt = maxAttempt;
     }
 
+    /**
+     * 返回实体控制器控制的Canvas
+     * @return 当前实例控制的Canvas
+     */
     public Canvas getCanvas() {
         return canvas;
     }
 
+    /**
+     * 返回实体控制器控制的GraphicsContext
+     * @return 当前实例控制的GraphicsContext
+     */
     public GraphicsContext getGc() {
         return gc;
     }
 
+    /**
+     * 返回当前的Player对象
+     * @return Player对象
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * 根据人物位置来进行屏幕的移动
+     */
     public void moveScreen(){
         if (player.getX() >= 500) {
             int moveLength = player.getMoveLength();
@@ -298,6 +341,10 @@ public class EntityController {
         }
     }
 
+    /**
+     * 对屏幕产生的碰撞事件和玩家的输入进行处理
+     * @param input 玩家的输入
+     */
     public void handleScreenEvent(HashSet<KeyCode> input){
         // 处理旗子的碰撞
         if (player.judgeCollision(flag)) {
@@ -384,6 +431,9 @@ public class EntityController {
         player.move(input);
     }
 
+    /**
+     * 重新绘制屏幕
+     */
     public void refreshScreen(){
         gc.drawImage(background.getImage(), background.getX(), background.getY());
         gc.drawImage(title.getImage(), title.getX(), title.getY());
@@ -421,6 +471,10 @@ public class EntityController {
         gc=canvas.getGraphicsContext2D();
     }
 
+    /**
+     * 得到当前的实体控制器实例
+     * @return
+     */
     public static EntityController getInstance(){
         return Singleton.INSTANCE.getInstance();
     }

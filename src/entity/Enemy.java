@@ -20,7 +20,7 @@ public class Enemy implements Collidable {
     private int floor;
 
     /**
-     * 生成一个敌人的构造函数
+     * 在屏幕尽头生成一个敌人
      */
     public Enemy() {
         this.image = new Image[2];
@@ -36,6 +36,11 @@ public class Enemy implements Collidable {
         this.floor = y;
     }
 
+    /**
+     * 新建一个在指定位置的敌人实例
+     * @param x 敌人的x坐标
+     * @param y 敌人的y坐标
+     */
     public Enemy(int x, int y) {
         this.image = new Image[2];
         image[0] = new Image("images/enemy/enemy1.png");

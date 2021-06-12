@@ -15,7 +15,11 @@ import java.io.File;
 import java.util.HashSet;
 
 /**
- * 控制类
+ * 使用单例模式编写的主控制类，控制其他所有Controller，
+ * 享有所有的Media对象，Scene对象以及其它一些全局的对象，
+ * 该类中定义了Scene的全局按键绑定，游戏的逐帧处理逻辑
+ * @author Matrix53
+ * @version 1.0
  */
 public class MainController {
     private final EntityController entityController=EntityController.getInstance();
@@ -30,13 +34,18 @@ public class MainController {
     private final AnimationTimer timer;
     private final Player player= entityController.getPlayer();
 
+    /**
+     * 开始游戏，
+     * 清空玩家之前的输入，并开始对输入进行处理
+     */
     public void startGame(){
+        input.clear();
         timer.start();
         levelController.startLevel(1);
     }
 
     /**
-     * 游戏结束
+     * 结束游戏，关闭屏幕
      */
     public void endGame() {
         Stage stage = (Stage) scene.getWindow();
@@ -44,16 +53,17 @@ public class MainController {
     }
 
     /**
-     * 暂停游戏
+     * 暂停游戏，使timer停止处理游戏逻辑
      */
     public void stopGame() {
         timer.stop();
     }
 
     /**
-     * 继续游戏
+     * 继续游戏，重新开始timer的计时
      */
     public void continueGame() {
+        input.clear();
         timer.start();
     }
 

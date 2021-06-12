@@ -5,7 +5,11 @@ import javafx.scene.image.Image;
 import java.util.Collection;
 
 /**
- * 可碰撞的实体的接口
+ * 可碰撞的实体的接口，所有能够碰撞的实体都必须实现该接口
+ *
+ * @author Matrix53
+ * @author luxia
+ * @version 1.1
  */
 public interface Collidable {
     /**

@@ -3,9 +3,10 @@ package level;
 import entity.box.PropType;
 
 /**
- * first Level of the game
+ * 游戏第一关
  *
  * @author luxia
+ * @version 1.0
  */
 public class Level1 extends Level{
     private int intro(int startPoint) {
@@ -94,7 +95,7 @@ public class Level1 extends Level{
     }
 
     /**
-     * main part of the design of level 1
+     * 第一关所要添加的的实体
      */
     @Override
     public void addEntity() {
@@ -107,6 +108,9 @@ public class Level1 extends Level{
         controller.setFlagPos(initialPoint + 200, 0);
     }
 
+    /**
+     * 第一关设置的玩家，旗子，标题的初始位置
+     */
     @Override
     public void setInitPos(){
 

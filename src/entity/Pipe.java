@@ -4,6 +4,10 @@ import javafx.scene.image.Image;
 
 /**
  * 管道
+ *
+ * @author Matrix53
+ * @author luxia
+ * @version 1.1
  */
 public class Pipe implements Collidable {
     private int x;

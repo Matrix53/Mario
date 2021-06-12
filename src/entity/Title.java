@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
  * 关卡开始的时候的介绍页，无碰撞体积
  *
  * @author luxia
+ * @version 1.0
  */
 public class Title {
     private int x;

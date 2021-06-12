@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
  * 需要自己收集的硬币
  *
  * @author luxia
+ * @version 1.0
  */
 public class Coin implements Collidable {
     private int x;
@@ -58,6 +59,11 @@ public class Coin implements Collidable {
         return x;
     }
 
+    /**
+     * 设置硬币的x坐标
+     *
+     * @return 硬币的x坐标
+     */
     public void setX(int x) {
         this.x = x;
     }
@@ -72,6 +78,11 @@ public class Coin implements Collidable {
         return y;
     }
 
+    /**
+     * 设置硬币的y坐标
+     *
+     * @return 硬币的y坐标
+     */
     public void setY(int y) {
         this.y = y;
     }
@@ -105,5 +116,4 @@ public class Coin implements Collidable {
     public void vanish() {
         x = -50;
     }
-
 }

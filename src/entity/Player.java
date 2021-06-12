@@ -80,6 +80,9 @@ public class Player implements Collidable {
         this.isToRight = false;
     }
 
+    /**
+     * 重置玩家的属性，以便开始新的关卡
+     */
     public void reset(){
         this.floor = (int) (550 - 85 - image[0].getHeight());
         this.animateTimer = 0;

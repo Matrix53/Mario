@@ -1,6 +1,5 @@
 package entity;
 
-import entity.Collidable;
 import javafx.scene.image.Image;
 
 /**

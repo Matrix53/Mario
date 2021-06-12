@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 
 /**
  * 一个可以开出道具的盒子
+ * @author luxia
+ * @version 1.0
  */
 public class Box implements Collidable {
     private int x;

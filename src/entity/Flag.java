@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 /**
  * 碰到旗子后代表本关结束的旗子类
+ *
+ * @author luxia
+ * @version 1.0
  */
 public class Flag implements Collidable {
     private int x;

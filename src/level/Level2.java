@@ -1,5 +1,10 @@
 package level;
 
+/**
+ * 游戏第二关
+ * @author pym-py
+ * @version 1.0
+ */
 public class Level2 extends Level{
     private void addStairs(int x, int n, int direction){
         int blocks = n;
@@ -40,6 +45,9 @@ public class Level2 extends Level{
         }
     }
 
+    /**
+     * 第二关所要添加的实体
+     */
     @Override
     public void addEntity(){
         //page1
@@ -111,6 +119,9 @@ public class Level2 extends Level{
         addVerticalWall(3400+34*3+100+34*3+100, 0, 9);
     }
 
+    /**
+     * 第二关人物，旗子，标题的初始位置
+     */
     @Override
     public void setInitPos(){
         controller.setPlayerPos(50,0);

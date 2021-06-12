@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
  * 可以使玩家升级的大蘑菇
  *
  * @author luxia
+ * @version 1.0
  */
 public class PowerUp implements Collidable {
     private int x;
