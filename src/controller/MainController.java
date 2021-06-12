@@ -2,7 +2,6 @@ package controller;
 
 import entity.Player;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -127,7 +126,7 @@ public class MainController {
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if (diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)) {
-                        Platform.exit();
+                        endGame();
                     }
                 } else {
                     entityController.handleScreenEvent(input);
