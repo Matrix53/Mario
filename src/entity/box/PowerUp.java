@@ -81,6 +81,38 @@ public class PowerUp implements Collidable {
         return isVisible;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getMoveLength() {
+        return moveLength;
+    }
+
+    public int getJumpHeight() {
+        return jumpHeight;
+    }
+
+    public boolean isGoLeft() {
+        return goLeft;
+    }
+
+    public void setGoLeft(boolean goLeft) {
+        this.goLeft = goLeft;
+    }
+
+    public boolean isFalling() {
+        return isFalling;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
     /**
      * 得到蘑菇的图片
      *

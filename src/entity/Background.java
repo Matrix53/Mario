@@ -64,6 +64,10 @@ public class Background {
         return image;
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     /**
      * 对背景进行水平方向的移动
      * @param moveLength 需要背景移动的距离
