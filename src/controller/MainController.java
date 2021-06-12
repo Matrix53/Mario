@@ -12,11 +12,13 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * 使用单例模式编写的主控制类，控制其他所有Controller，
  * 享有所有的Media对象，Scene对象以及其它一些全局的对象，
  * 该类中定义了Scene的全局按键绑定，游戏的逐帧处理逻辑
+ *
  * @author Matrix53
  * @version 1.0
  */
@@ -26,20 +28,20 @@ public class MainController {
     private final Group root;
     private final Scene scene;
     private final HashSet<KeyCode> input;
-    private final Media normal;
-    private final Media die;
-    private final Media jump;
-    private final MediaPlayer normalPlayer;
-    private final MediaPlayer diePlayer;
-    private final MediaPlayer jumpPlayer;
-    private final AnimationTimer timer;
-    private final Player player;
+    private Media normal;
+    private Media die;
+    private Media jump;
+    private MediaPlayer normalPlayer;
+    private MediaPlayer diePlayer;
+    private MediaPlayer jumpPlayer;
+    private AnimationTimer timer;
+    private Player player;
 
     /**
      * 开始游戏，
      * 清空玩家之前的输入，并开始对输入进行处理
      */
-    public void startGame(){
+    public void startGame() {
         input.clear();
         timer.start();
         levelController.startLevel(0);
@@ -70,18 +72,29 @@ public class MainController {
 
     private MainController() {
         // 初始化控制器属性
-        entityController=EntityController.getInstance();
-        levelController=LevelController.getInstance();
+        entityController = EntityController.getInstance();
+        levelController = LevelController.getInstance();
         root = new Group(entityController.getCanvas());
         scene = new Scene(root);
         input = new HashSet<>();
-        normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
-        die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
-        jump= new Media(new File("assets/sounds/jump.mp3").toURI().toString());
+        try {
+            normal = new Media(new File("assets/sounds/default.mp3").toURI().toString());
+            die = new Media(new File("assets/sounds/die.mp3").toURI().toString());
+            jump = new Media(new File("assets/sounds/jump.mp3").toURI().toString());
+//            normal = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/default.mp3")).toExternalForm());
+//            die = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/die.mp3")).toExternalForm());
+//            jump = new Media(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/jump.mp3")).toExternalForm());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+       System.out.println(new File("../sounds/default.mp3").toURI().toString());
         normalPlayer = new MediaPlayer(normal);
         diePlayer = new MediaPlayer(die);
-        jumpPlayer=new MediaPlayer(jump);
-        player= entityController.getPlayer();
+        jumpPlayer = new MediaPlayer(jump);
+
+        player = entityController.getPlayer();
         // 定义按键绑定，记录用户的输入，忽略短时间内的重复输入
         scene.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
@@ -108,7 +121,7 @@ public class MainController {
                 case Z -> entityController.clearScreen();
                 // 播放跳跃音乐
                 case UP -> {
-                    if(!player.isToDown()){
+                    if (!player.isToDown()) {
                         jumpPlayer.setStartTime(Duration.millis(7));
                         jumpPlayer.play();
                     }
@@ -116,7 +129,7 @@ public class MainController {
             }
         });
         // 定义动画的逐帧处理逻辑
-        this.timer = new AnimationTimer(){
+        this.timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 // 背景音乐
@@ -129,10 +142,11 @@ public class MainController {
                     normalPlayer.setMute(true);
                     diePlayer.play();
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
-                    if(diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
+                    if (diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)) {
                         levelController.startNextLevel();
                         return;
-                    };
+                    }
+                    ;
                 } else if (player.isDead()) {
                     normalPlayer.setMute(true);
                     diePlayer.play();
