@@ -2,6 +2,7 @@ package level;
 
 import controller.LevelController;
 import controller.MainController;
+import entity.Record;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -30,16 +31,21 @@ public class StartLevel extends Level{
     public void addMouseEvent(){
         MainController mainController=MainController.getInstance();
         LevelController levelController=LevelController.getInstance();
+        Record record=controller.getRecord();
         GraphicsContext gc=controller.getGc();
         Image image=new Image("images/background/start.jpg");
         mainController.stopGame();
         gc.drawImage(image,0,0);
+        record.readRecord();
+        record.drawStartScore();
+        controller.getPlayer().setRecord(record);
         controller.addMouseEvent(mouseEvent -> {
             int x=(int)mouseEvent.getX();
             int y=(int)mouseEvent.getY();
             if(x>=552 && x<=769 && y>=281 && y<=366){
                 mainController.continueGame();
                 levelController.startNextLevel();
+                record.reset();
             } else if(x>=552 && x<=769 && y>=408 && y<=491){
                 mainController.endGame();
             }

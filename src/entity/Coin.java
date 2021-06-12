@@ -87,10 +87,18 @@ public class Coin implements Collidable {
         this.y = y;
     }
 
+    /**
+     * 得到当前硬币的计时器的计数
+     * @return 计时器的计数
+     */
     public int getTimer() {
         return timer;
     }
 
+    /**
+     * 设置硬币的计时器计数
+     * @param timer 计时器的计数
+     */
     public void setTimer(int timer) {
         this.timer = timer;
     }

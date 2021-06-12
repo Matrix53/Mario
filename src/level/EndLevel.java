@@ -2,6 +2,7 @@ package level;
 
 import controller.LevelController;
 import controller.MainController;
+import entity.Record;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -15,17 +16,13 @@ public class EndLevel extends Level{
      * 结束界面无需添加实体，该方法的重写仅仅是为了保证语法正确
      */
     @Override
-    public void addEntity(){
-
-    }
+    public void addEntity(){ }
 
     /**
      * 游戏的结束界面角色，旗子，标题的位置
      */
     @Override
-    public void setInitPos(){
-
-    }
+    public void setInitPos(){ }
 
     /**
      * 重写start方法，以此获得Player结束游戏时的状态
@@ -37,9 +34,12 @@ public class EndLevel extends Level{
         String path=isWin? "images/background/happyEnd.jpg":"images/background/badEnd.jpg";
         Image image=new Image(path);
         GraphicsContext gc= controller.getGc();
+        Record record=controller.getRecord();
         mainController.stopGame();
         gc.drawImage(image,0,0);
+        record.drawEndScore();
         if(isWin){
+            record.setLevel(3);
             controller.addMouseEvent(mouseEvent -> {
                 int x=(int)mouseEvent.getX();
                 int y=(int)mouseEvent.getY();
@@ -58,5 +58,6 @@ public class EndLevel extends Level{
                 }
             });
         }
+        record.saveRecord();
     }
 }

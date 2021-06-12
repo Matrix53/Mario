@@ -88,30 +88,58 @@ public class PowerUp implements Collidable {
         return isVisible;
     }
 
+    /**
+     * 设置PowerUp的y坐标
+     * @param y PowerUp的y坐标
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * 得到PowerUp的水平移动速度
+     * @return 水平移动速度
+     */
     public int getMoveLength() {
         return moveLength;
     }
 
+    /**
+     * 得到PowerUp的跳跃高度
+     * @return 跳跃高度
+     */
     public int getJumpHeight() {
         return jumpHeight;
     }
 
+    /**
+     * 得到PowerUp的水平移动状态
+     * @return 水平移动状态
+     */
     public boolean isGoLeft() {
         return goLeft;
     }
 
+    /**
+     * 设置PowerUp的水平移动状态
+     * @param goLeft 水平移动状态
+     */
     public void setGoLeft(boolean goLeft) {
         this.goLeft = goLeft;
     }
 
+    /**
+     * PowerUp是否在降落
+     * @return 是否在降落
+     */
     public boolean isFalling() {
         return isFalling;
     }
 
+    /**
+     * 设置PowerUp的可见性
+     * @param visible PowerUp的可见性
+     */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }

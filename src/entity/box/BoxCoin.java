@@ -80,56 +80,108 @@ public class BoxCoin implements Collidable {
         return image[timer / 3];
     }
 
+    /**
+     * 得到当前高度
+     * @return 当前高度
+     */
     @Override
     public int getHeight() {
         return (int) image[0].getHeight();
     }
 
+    /**
+     * 得到当前宽度
+     * @return 当前宽度
+     */
     @Override
     public int getWidth() {
         return (int) image[0].getWidth();
     }
 
+    /**
+     * 设置当前的y坐标
+     * @param y 当前的y坐标
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * 设置当前的图像
+     * @param image 想要设置的图像
+     */
     public void setImage(Image[] image) {
         this.image = image;
     }
 
+    /**
+     * 得到当前的计时器
+     * @return 当前的计时器计数
+     */
     public int getTimer() {
         return timer;
     }
 
+    /**
+     * 设置当前的计时器计数
+     * @param timer 当前的计时器计数
+     */
     public void setTimer(int timer) {
         this.timer = timer;
     }
 
+    /**
+     * 得到当前的跳跃高度
+     * @return 跳跃高度
+     */
     public int getJumpHeight() {
         return jumpHeight;
     }
 
+    /**
+     * 设置其跳跃高度
+     * @param jumpHeight 跳跃高度
+     */
     public void setJumpHeight(int jumpHeight) {
         this.jumpHeight = jumpHeight;
     }
 
+    /**
+     * 得到当前的跳跃状态
+     * @return 是否在上升
+     */
     public int getJumping() {
         return jumping;
     }
 
+    /**
+     * 设置是否在跳跃
+     * @param jumping 是否在跳跃
+     */
     public void setJumping(int jumping) {
         this.jumping = jumping;
     }
 
+    /**
+     * 得到当前的跳跃状态
+     * @return 是否在下落
+     */
     public int getFalling() {
         return falling;
     }
 
+    /**
+     * 设置是否在下落
+     * @param falling 是否在下落
+     */
     public void setFalling(int falling) {
         this.falling = falling;
     }
 
+    /**
+     * 设置BoxCoin的可见性
+     * @param visible BoxCoin的可见性
+     */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }

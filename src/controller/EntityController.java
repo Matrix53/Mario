@@ -337,6 +337,14 @@ public class EntityController {
     }
 
     /**
+     * 返回当前的Record对象
+     * @return Record对象
+     */
+    public Record getRecord() {
+        return record;
+    }
+
+    /**
      * 根据人物位置来进行屏幕的移动
      */
     public void moveScreen() {
@@ -498,7 +506,7 @@ public class EntityController {
     /**
      * 得到当前的实体控制器实例
      *
-     * @return
+     * @return 实体控制器实例
      */
     public static EntityController getInstance() {
         return Singleton.INSTANCE.getInstance();
