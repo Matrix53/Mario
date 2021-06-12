@@ -131,6 +131,7 @@ public class MainController {
                     diePlayer.setOnEndOfMedia(diePlayer::stop);
                     if(diePlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
                         levelController.startNextLevel();
+                        return;
                     };
                 } else if (player.isDead()) {
                     normalPlayer.setMute(true);

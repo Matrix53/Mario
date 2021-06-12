@@ -2,12 +2,12 @@ package entity;
 
 public class Record {
     private int score;
-    private int time;
+    private int timer;
     private int level;
 
     public Record(){
         this.score=0;
-        this.time=0;
+        this.timer=0;
         this.level=0;
     }
 
