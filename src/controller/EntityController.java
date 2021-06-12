@@ -336,6 +336,10 @@ public class EntityController {
         return player;
     }
 
+    public Record getRecord() {
+        return record;
+    }
+
     /**
      * 根据人物位置来进行屏幕的移动
      */

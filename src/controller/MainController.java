@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Player;
+import entity.Record;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -34,6 +35,7 @@ public class MainController {
     private final MediaPlayer jumpPlayer;
     private final AnimationTimer timer;
     private final Player player;
+    private final Record record;
 
     /**
      * 开始游戏，
@@ -72,6 +74,7 @@ public class MainController {
         // 初始化控制器属性
         entityController=EntityController.getInstance();
         levelController=LevelController.getInstance();
+        record=entityController.getRecord();
         root = new Group(entityController.getCanvas());
         scene = new Scene(root);
         input = new HashSet<>();
@@ -143,6 +146,8 @@ public class MainController {
                     }
                 } else {
                     entityController.handleScreenEvent(input);
+                    // 处理时间的增长
+                    record.updateTime(now);
                 }
                 // 处理跳跃动画
                 player.jump();

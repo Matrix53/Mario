@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Record;
 import level.*;
 
 /**
@@ -11,6 +12,7 @@ public class LevelController {
     private final Level[] levels;
     private int levelPointer;
     private int maxLevel;
+    private Record record;
 
     /**
      * 开始某一个指定的关卡，
@@ -23,6 +25,7 @@ public class LevelController {
             return false;
         }else{
             levelPointer=level;
+            if(level!=maxLevel-1) record.setLevel(level);
             levels[levelPointer].start();
             return true;
         }
@@ -38,6 +41,7 @@ public class LevelController {
             return false;
         }else{
             levelPointer++;
+            if(levelPointer!=maxLevel-1) record.setLevel(levelPointer);
             levels[levelPointer].start();
             return true;
         }
@@ -48,6 +52,7 @@ public class LevelController {
      */
     public void startFirstLevel(){
         levelPointer=0;
+        record.setLevel(0);
         levels[levelPointer].start();
     }
 
@@ -55,6 +60,7 @@ public class LevelController {
      * 开始最后一关，也就是游戏的终章
      */
     public void startLastLevel(){
+        if(levelPointer==maxLevel-1) record.setLevel(3);
         levelPointer=maxLevel-1;
         levels[levelPointer].start();
     }
@@ -67,6 +73,8 @@ public class LevelController {
         levels[3]=new EndLevel();
         levelPointer=0;
         maxLevel=4;
+        EntityController entityController=EntityController.getInstance();
+        record=entityController.getRecord();
     }
 
     /**
